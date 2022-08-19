@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Home",
+    "type": "internal",
+    "icon": "home",
+    "target": "/"
+  },
+  {
+    "title": "Download",
+    "type": "external",
+    "icon": "download",
+    "target": "404"
+  },
+  {
+    "title": "Packages",
+    "type": "internal",
+    "icon": "package",
+    "target": "/packages"
+  },
+  {
+    "title": "Build",
+    "type": "external",
+    "icon": "hammer-wrench",
+    "target": "404"
+  },
+  {
+    "title": "Source",
+    "type": "internal",
+    "icon": "file-code-outline",
+    "target": "/source"
+  },
+  {
+    "title": "About",
+    "type": "internal",
+    "icon": "information",
+    "target": "/about"
+  }
+]
