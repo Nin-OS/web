@@ -53,6 +53,11 @@ export default {
 </script>
 
 <style scoped>
+.logo {
+  width: 400px;
+  height: 400px;
+}
+
 @media only screen and (max-width: 600px) {
   .logo {
     width: 200px;

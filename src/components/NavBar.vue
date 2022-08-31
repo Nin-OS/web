@@ -6,29 +6,28 @@
       </v-avatar>
       <b>eweOS </b> | {{ $route.name }}
     </v-app-bar-title>
-    <v-app-bar-title class="hidden-md-and-up">
-      <b>ewe</b>OS
-    </v-app-bar-title>
+    <v-app-bar-title class="hidden-md-and-up"> <b>ewe</b>OS </v-app-bar-title>
     <v-spacer />
-    <v-btn
-      class="hidden-sm-and-down"
-      v-for="link in navlinks"
-      :key="link.title"
-      variant="text"
-      :to="link.target"
-    >
-      {{ link.title }}
-    </v-btn>
-    <v-btn
-      size="small"
-      class="hidden-md-and-up"
-      v-for="link in navlinks"
-      :key="link.title"
-      icon
-      :to="link.target"
-    >
-      <v-icon>mdi-{{ link.icon }}</v-icon>
-    </v-btn>
+    <div v-for="link in navlinks" :key="link.title">
+      <v-btn
+        size="small"
+        class="hidden-sm-and-down"
+        variant="text"
+        :to="link.type == 'internal' ? link.target : null"
+        :href="link.type == 'external' ? link.target : null"
+      >
+        {{ link.title }}
+      </v-btn>
+      <v-btn
+        size="small"
+        class="hidden-md-and-up"
+        icon
+        :to="link.type == 'internal' ? link.target : null"
+        :href="link.type == 'external' ? link.target : null"
+      >
+        <v-icon>mdi-{{ link.icon }}</v-icon>
+      </v-btn>
+    </div>
   </v-app-bar>
 </template>
 
@@ -37,6 +36,7 @@ import logo from "@/assets/logo.svg";
 import navlinks from "@/data/navlinks.json";
 
 export default {
+  components: {},
   data: () => ({
     logo: logo,
     navlinks: navlinks,

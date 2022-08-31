@@ -7,9 +7,9 @@
   },
   {
     "title": "Download",
-    "type": "external",
+    "type": "internal",
     "icon": "download",
-    "target": "404"
+    "target": "/download"
   },
   {
     "title": "Packages",
@@ -18,16 +18,16 @@
     "target": "/packages"
   },
   {
-    "title": "Build",
+    "title": "News",
     "type": "external",
-    "icon": "hammer-wrench",
+    "icon": "newspaper-variant",
     "target": "404"
   },
   {
-    "title": "Source",
-    "type": "internal",
-    "icon": "file-code-outline",
-    "target": "/source"
+    "title": "Wiki",
+    "type": "external",
+    "icon": "book-open-page-variant",
+    "target": "https://os-wiki.ewe.moe"
   },
   {
     "title": "About",

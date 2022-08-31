@@ -8,6 +8,11 @@ const routes = [
     component: HomeView,
   },
   {
+    path: "/download",
+    name: "Download",
+    component: () => import("../views/DownloadView.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     component: () => import("../views/AboutView.vue"),
