@@ -23,38 +23,23 @@
     </p>
     <h2 class="mb-2"># Features</h2>
     <v-row>
-      <v-col cols="12" sm="6" md="6" lg="3">
+      <v-col
+        cols="12"
+        sm="6"
+        md="6"
+        lg="3"
+        v-for="feature in features"
+        :key="feature"
+      >
         <v-card variant="outlined">
-          <v-card-text class="text-center text-h4 my-2"> musl </v-card-text>
+          <v-card-text class="text-center text-h4 my-2">{{
+            feature.pkg
+          }}</v-card-text>
           <v-divider />
-          <v-card-text class="text-center pa-1"> as our libc </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" sm="6" md="6" lg="3">
-        <v-card variant="outlined">
-          <v-card-text class="text-center text-h4 my-2"> clang </v-card-text>
-          <v-divider />
-          <v-card-text class="text-center pa-1">
-            as our default C compiler
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" sm="6" md="6" lg="3">
-        <v-card variant="outlined">
-          <v-card-text class="text-center text-h4 my-2"> busybox </v-card-text>
-          <v-divider />
-          <v-card-text class="text-center pa-1">
-            as our core utils
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" sm="6" md="6" lg="3">
-        <v-card variant="outlined">
-          <v-card-text class="text-center text-h4 my-2"> S6 </v-card-text>
-          <v-divider />
-          <v-card-text class="text-center pa-1">
-            as our init system
-          </v-card-text>
+          <v-card-text
+            class="text-center pa-1"
+            v-html="feature.desc"
+          ></v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -62,7 +47,44 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    features: [
+      {
+        pkg: "pacman",
+        desc: "as package manager",
+      },
+      {
+        pkg: "musl",
+        desc: "as libc",
+      },
+      {
+        pkg: "clang",
+        desc: "as default C compiler",
+      },
+      {
+        pkg: "busybox",
+        desc: "as core utils",
+      },
+      {
+        pkg: "dinit",
+        desc: "as init system",
+      },
+      {
+        pkg: "mold",
+        desc: "as linker (Soon &trade;)",
+      },
+      {
+        pkg: "mimalloc",
+        desc: "as allocator (Soon &trade;)",
+      },
+      {
+        pkg: "wayland",
+        desc: "as window system (Soon &trade;)",
+      },
+    ],
+  }),
+};
 </script>
 
 <style></style>
