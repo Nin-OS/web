@@ -13,9 +13,9 @@
   },
   {
     "title": "Packages",
-    "type": "internal",
+    "type": "external",
     "icon": "package",
-    "target": "/packages"
+    "target": "https://os-build.ewe.moe"
   },
   {
     "title": "News",

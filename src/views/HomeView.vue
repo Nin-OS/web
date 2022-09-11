@@ -8,12 +8,12 @@
         <v-btn class="ma-1" variant="outlined" to="/about">
           <v-icon start>mdi-information-outline</v-icon>About
         </v-btn>
-        <v-btn class="ma-1" variant="outlined">
+        <v-btn class="ma-1" variant="outlined" to="/download">
           <v-icon start>mdi-cloud-download-outline</v-icon>
           Download
         </v-btn>
       </div>
-      <p class="text-caption  text-disabled">Latest Updated: Unknown</p>
+      <p class="text-caption  text-disabled">Latest Updated: Unknown (API Soon&trade;)</p>
     </div>
   </div>
 </template>

@@ -72,11 +72,11 @@ export default {
       },
       {
         pkg: "mold",
-        desc: "as linker (Soon &trade;)",
+        desc: "as linker",
       },
       {
         pkg: "mimalloc",
-        desc: "as allocator (Soon &trade;)",
+        desc: "as allocator",
       },
       {
         pkg: "wayland",

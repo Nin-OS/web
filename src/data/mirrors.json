@@ -1,8 +1,14 @@
 [
   {
     "id": "eweos",
-    "name": "eweOS Official Repository (WIP)",
-    "url": "https://os-repo.ewe.moe/eweos-cd",
+    "name": "eweOS Official Repository",
+    "url": "https://os-repo.ewe.moe/eweos-images",
     "tags": ["Official"]
+  },
+  {
+    "id": "eweos-dn42",
+    "name": "eweOS Official Repository at DN42",
+    "url": "http://repo.nia.dn42/eweos-images",
+    "tags": ["Official", "Limited-access"]
   }
 ]

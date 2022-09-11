@@ -7,18 +7,20 @@
         eweOS bootable image weekly builds below, and burn it to a CD or write
         to a USB drive.
         <br />
-        You can follow the installation guide from wiki(WIP) to install eweOS to
+        You can follow the <a href="https://os-wiki.ewe.moe/installation">installation guide</a> from wiki to install eweOS to
         your machine.
       </p>
+
+      <h2 class="mt-2">Supported Platforms</h2>
       <v-alert class="my-2">
-        <ol>
-          <li>Current Release: WIP</li>
-          <li>Included Kernel: WIP</li>
-          <li>ISO Size: WIP</li>
-          <li>Checksum (SHA512): <code>WIP</code></li>
-          <li>Checksum (SHA1): <code>WIP</code></li>
-          <li>Checksum (MD5): <code>WIP</code></li>
-        </ol>
+        <p>
+          <b>Tier-0 Platforms:</b><br />
+          x86_64
+        </p>
+        <p>
+          <b>Tier-1 Platforms:</b><br />
+          Soon&trade;
+        </p>
       </v-alert>
       <h2 class="mt-2">Available Mirrors</h2>
       <v-list two-lines>
@@ -30,6 +32,7 @@
             </v-list-item-title>
             <v-list-item-subtitle>
               <v-chip
+                class="mr-2"
                 v-for="tag in mirror.tags"
                 :key="tag"
                 outlined
@@ -50,6 +53,12 @@
           <v-divider />
         </template>
       </v-list>
+
+      <h2 class="mt-2">Build Your Own Image</h2>
+      <p>
+        Want to build your own image and get fully customized experience? Please
+        checkout at <a href="http://os-wiki.ewe.moe">our wiki</a>.
+      </p>
     </div>
   </div>
 </template>
