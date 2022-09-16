@@ -79,8 +79,8 @@ export default {
         desc: "as allocator",
       },
       {
-        pkg: "wayland",
-        desc: "as window system (Soon &trade;)",
+        pkg: "? ? ?",
+        desc: "(Soon &trade;)",
       },
     ],
   }),

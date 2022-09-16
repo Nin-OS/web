@@ -13,14 +13,28 @@
           Download
         </v-btn>
       </div>
-      <p class="text-caption  text-disabled">Latest Updated: Unknown (API Soon&trade;)</p>
+      <p class="text-caption text-disabled">
+        Latest Updated: {{ updated_date }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
 import EweLogo from "@/components/EweLogo.vue";
+import axios from "axios";
 
 import { defineComponent } from "vue";
-export default defineComponent({ name: "HomeView", components: { EweLogo } });
+export default defineComponent({
+  name: "HomeView",
+  components: { EweLogo },
+  data: () => ({
+    updated_date: "Unknown",
+  }),
+  mounted() {
+    axios.get("https://ewe-obs-trigger.nia.workers.dev/update").then((resp) => {
+      this.updated_date = new Date(parseInt(resp.data.updated_date)).toLocaleDateString();
+    });
+  },
+});
 </script>
