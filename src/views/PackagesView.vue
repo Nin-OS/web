@@ -1,0 +1,52 @@
+<template>
+  <div>
+    <div class="d-flex flex-column">
+      <h1 class="mb-2"># Packages</h1>
+    </div>
+    <v-row>
+      <v-col cols="12">
+        <v-card width="100%" variant="outlined">
+          <v-card-title
+            ><v-icon start icon="mdi-package" />Package List</v-card-title
+          >
+          <v-card-text>
+            A list of all packages in eweOS will be available Soon&trade;
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-card width="100%" variant="outlined">
+          <v-card-title
+            ><v-icon start icon="mdi-wrench" />Build System</v-card-title
+          >
+          <v-card-text>
+            We use Open Build Service(OBS) as our build system.
+          </v-card-text>
+          <v-card-actions>
+            <v-btn href="https://os-build.ewe.moe"> OBS >> </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-card width="100%" variant="outlined">
+          <v-card-title
+            ><v-icon start icon="mdi-github" />Source Code</v-card-title
+          >
+          <v-card-text>
+            We use GitHub as our source code repository.
+          </v-card-text>
+          <v-card-actions>
+            <v-btn href="https://github.com/eweOS/pkgs"> GitHub >> </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
+</template>
+
+<script>
+import { defineComponent } from "vue";
+export default defineComponent({ name: "BlogView" });
+</script>
+
+<style></style>

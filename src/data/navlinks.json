@@ -13,15 +13,15 @@
   },
   {
     "title": "Packages",
-    "type": "external",
+    "type": "internal",
     "icon": "package",
-    "target": "https://os-build.ewe.moe"
+    "target": "/packages"
   },
   {
-    "title": "News",
-    "type": "external",
+    "title": "Blog",
+    "type": "internal",
     "icon": "newspaper-variant",
-    "target": "404"
+    "target": "/blog"
   },
   {
     "title": "Wiki",
