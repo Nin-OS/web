@@ -44,8 +44,14 @@
       </v-col>
     </v-row>
     <h2 class="my-2"># Contact</h2>
-    Join us on Matrix space:
-    <a href="https://matrix.to/#/%23os%3Aewe.moe">#os:ewe.moe</a>.
+    <p>
+      Join us on Matrix space:
+      <a href="https://matrix.to/#/%23os%3Aewe.moe">#os:ewe.moe</a>.
+    </p>
+    <p>
+      Join us on Teleram Groups:
+      <a href="https://eweOSDev.t.me">@eweOSDev</a>.
+    </p>
   </div>
 </template>
 

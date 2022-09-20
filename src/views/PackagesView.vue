@@ -7,11 +7,14 @@
       <v-col cols="12">
         <v-card width="100%" variant="outlined">
           <v-card-title
-            ><v-icon start icon="mdi-package" />Package List</v-card-title
+            ><v-icon start icon="mdi-package" />Repository</v-card-title
           >
           <v-card-text>
             A list of all packages in eweOS will be available Soon&trade;
           </v-card-text>
+          <v-card-actions>
+            <v-btn href="https://os-repo.ewe.moe"> Repo >> </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="12" md="6">

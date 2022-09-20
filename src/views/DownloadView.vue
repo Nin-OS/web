@@ -7,8 +7,9 @@
         eweOS bootable image weekly builds below, and burn it to a CD or write
         to a USB drive.
         <br />
-        You can follow the <a href="https://os-wiki.ewe.moe/installation">installation guide</a> from wiki to install eweOS to
-        your machine.
+        You can follow the
+        <a href="https://os-wiki.ewe.moe/installation">installation guide</a>
+        from wiki to install eweOS to your machine.
       </p>
 
       <h2 class="mt-2">Supported Platforms</h2>
@@ -52,6 +53,11 @@
           </v-list-item>
           <v-divider />
         </template>
+        <v-list-item disabled>
+          <v-list-item-title> More mirrors soon&trade;... </v-list-item-title>
+          <v-list-item-subtitle> Contact us if you want to add your mirror to our list. </v-list-item-subtitle>
+        </v-list-item>
+        <v-divider />
       </v-list>
 
       <h2 class="mt-2">Build Your Own Image</h2>
