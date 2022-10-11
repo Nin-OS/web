@@ -20,7 +20,7 @@
         </p>
         <p>
           <b>Tier-1 Platforms:</b><br />
-          Soon&trade;
+          aarch64 (WIP), riscv64 (Soon&trade;)
         </p>
       </v-alert>
       <h2 class="mt-2">Available Mirrors</h2>
