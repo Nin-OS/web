@@ -50,7 +50,7 @@
     </p>
     <p>
       Join us on Teleram Groups:
-      <a href="https://eweOS4Dev.t.me">@eweOSDev</a>.
+      <a href="https://eweOS4Dev.t.me">@eweOS4Dev</a>.
     </p>
   </div>
 </template>
