@@ -43,6 +43,37 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-col cols="12" md="6">
+        <v-card width="100%" variant="outlined">
+          <v-card-title
+            ><v-icon start icon="mdi-server-network" />Test Server</v-card-title
+          >
+          <v-card-text>
+            We have a VM with eweOS installed (really unstable!)
+            and run some useful web programs for packagers.
+          </v-card-text>
+          <v-card-actions>
+            <v-btn href="https://os-test.ewe.moe"> Test Server >> </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-card width="100%" variant="outlined">
+          <v-card-title
+            ><v-icon start icon="mdi-source-repository" />User Repository
+            (Soon&trade;)</v-card-title
+          >
+          <v-card-text>
+            We'll have eweOS User Repository (EUR), a community-driven
+            repository.
+          </v-card-text>
+          <v-card-actions>
+            <v-btn disabled href="https://os-eur.ewe.moe">
+              Soon&trade; >>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
     </v-row>
   </div>
 </template>

@@ -1,20 +1,32 @@
 <template>
   <v-card
-    class="ma-2"
+    variant="outlined"
+    class="ma-2 align-self-stretch"
     width="100%"
-    title="This is a title"
-    subtitle="This is a subtitle"
-    text="This is content"
+    :title="post.title"
+    :subtitle="'By ' + post.user.login"
   >
+    <v-card-text
+      class="text-truncate"
+      v-text="post.body"
+    >
+    </v-card-text>
     <v-card-actions>
+      <v-chip
+        variant="text"
+        prepend-icon="mdi-clock-outline"
+        :text="new Date(post.created_at).toLocaleDateString()"
+      />
       <v-spacer />
-      <v-btn> READ MORE </v-btn>
+      <v-btn :to="'/blog/' + post.number"> READ MORE </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["post"],
+};
 </script>
 
 <style></style>

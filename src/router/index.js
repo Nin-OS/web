@@ -25,11 +25,11 @@ const routes = [
   {
     path: "/blog",
     name: "Blog",
-    component: () => import("../views/Soon.vue"),
+    component: () => import("../views/Blog.vue"),
   },
   {
-    path: "/blogarticle/:article",
-    name: "Article",
+    path: "/blog/:article",
+    name: "Blog Post",
     component: () => import("../views/BlogArticle.vue"),
   },
   {

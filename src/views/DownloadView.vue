@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-column">
-      <h1 class="mb-2"># Download and install eweOS</h1>
+      <h1 class="mb-2"># Download and Install eweOS</h1>
       <p>
         Since we follow the rolling release model, you can download a copy of
         eweOS bootable image weekly builds below, and burn it to a CD or write
