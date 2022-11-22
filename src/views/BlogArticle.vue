@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="d-flex flex-column" v-if="!loading">
-      <v-card-title class="text-h3 mb-4">
+      <div class="text-h3 mb-4">
         {{ post.title }}
-      </v-card-title>
+      </div>
       <v-card-actions class="mb-1">
         <v-chip
           variant="text"
@@ -17,8 +17,13 @@
         />
       </v-card-actions>
       <v-divider />
-      <v-card-text class="mt-6">
-        <vue-markdown :source="post.body" :breaks="true" />
+      <v-card-text class="mt-2">
+        <vue-markdown
+          class="mdshow"
+          :source="post.body"
+          breaks="true"
+          typographer="true"
+        />
       </v-card-text>
     </div>
     <div class="d-flex flex-column align-center" v-if="loading">
@@ -53,4 +58,12 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.mdshow * {
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding: revert;
+}
+</style>

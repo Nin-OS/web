@@ -10,10 +10,12 @@
             ><v-icon start icon="mdi-package" />Repository</v-card-title
           >
           <v-card-text>
-            A list of all packages in eweOS will be available Soon&trade;
+            There is a list of packages in eweOS which can be downloaded and
+            browsed.
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-repo.ewe.moe"> Repo >> </v-btn>
+            <v-btn to="/packageinfo"> Package List >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -49,8 +51,8 @@
             ><v-icon start icon="mdi-server-network" />Test Server</v-card-title
           >
           <v-card-text>
-            We have a VM with eweOS installed (really unstable!)
-            and run some useful web programs for packagers.
+            We have a VM with eweOS installed (really unstable!) and run some
+            useful web programs for packagers.
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-test.ewe.moe"> Test Server >> </v-btn>

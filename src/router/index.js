@@ -18,6 +18,21 @@ const routes = [
     component: () => import("../views/PackagesView.vue"),
   },
   {
+    path: "/packageinfo",
+    name: "Package List",
+    component: () => import("../views/PackageListView.vue"),
+  },
+  {
+    path: "/packageinfo/:repo/:pkg",
+    name: "Package Info",
+    component: () => import("../views/PackageDetailView.vue"),
+  },
+  {
+    path: "/packagesearch/:pkg",
+    name: "Searching Package",
+    component: () => import("../views/PackageSearchView.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     component: () => import("../views/AboutView.vue"),

@@ -1,7 +1,7 @@
 <template>
   <v-card
     variant="outlined"
-    class="ma-2 align-self-stretch"
+    class="my-2 align-self-stretch"
     width="100%"
     :title="post.title"
     :subtitle="'By ' + post.user.login"
