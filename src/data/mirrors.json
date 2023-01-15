@@ -6,8 +6,14 @@
     "tags": ["Official"]
   },
   {
+    "id": "eweos-bak",
+    "name": "eweOS Official Repository (Backup)",
+    "url": "https://os-repo-bak.ewe.moe/eweos-images",
+    "tags": ["Official", "Backup"]
+  },
+  {
     "id": "eweos-dn42",
-    "name": "eweOS Official Repository at DN42",
+    "name": "eweOS Official Repository (DN42)",
     "url": "http://repo.nia.dn42/eweos-images",
     "tags": ["Official", "Limited-access"]
   }
