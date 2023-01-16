@@ -1,12 +1,14 @@
 <template>
- <div>
+  <div>
     <div class="d-flex flex-column align-center">
       <ewe-logo />
-      <h1 class="text-h1"><b>404</b></h1>
+      <h1 class="text-h1">
+        <b>{{ $route.params.code }}</b>
+      </h1>
       <p class="text-h5">Not Found</p>
       <v-btn class="mt-8" variant="outlined" to="/">Back to Home</v-btn>
     </div>
- </div>
+  </div>
 </template>
 
 <script>

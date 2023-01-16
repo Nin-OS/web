@@ -48,9 +48,13 @@ const routes = [
     component: () => import("../views/BlogArticle.vue"),
   },
   {
+    path: "/error/:code",
+    name: "Error Page",
+    component: () => import("../views/ErrorPage.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
-    name: "404",
-    component: () => import("../views/NotFound.vue"),
+    redirect: '/error/404'
   },
 ];
 

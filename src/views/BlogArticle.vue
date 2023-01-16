@@ -53,6 +53,9 @@ export default defineComponent({
       .then((data) => {
         this.post = data.data;
         this.loading = false;
+      })
+      .catch(() => {
+        this.$router.push("/404");
       });
   },
 });

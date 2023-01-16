@@ -45,12 +45,16 @@
     </v-row>
     <h2 class="my-2"># Contact</h2>
     <p>
-      Join us on Matrix space:
-      <a href="https://matrix.to/#/%23os%3Aewe.moe">#os:ewe.moe</a>.
+      Join us on Matrix Space:
+      <v-chip label size="small" href="https://matrix.to/#/%23os%3Aewe.moe">
+        #os:ewe.moe
+      </v-chip>
     </p>
     <p>
-      Join us on Teleram Groups:
-      <a href="https://eweOS4Dev.t.me">@eweOS4Dev</a>.
+      Join us on Telegram Group:
+      <v-chip label size="small" href="https://eweOS4Dev.t.me">
+        @eweOS4Dev
+      </v-chip>
     </p>
   </div>
 </template>
