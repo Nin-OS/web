@@ -56,6 +56,16 @@
         @eweOS4Dev
       </v-chip>
     </p>
+    <p>
+      Subscribe / Join our maillist:
+      <ul class="pl-12">
+        <li> Developers: 
+          <v-chip label size="small" href="https://www.freelists.org/list/eweos-dev">
+            eweos-dev@freelists.org
+          </v-chip>
+        </li>
+      </ul>
+    </p>
   </div>
 </template>
 
