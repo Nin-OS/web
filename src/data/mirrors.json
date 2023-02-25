@@ -3,7 +3,7 @@
     "id": "eweos",
     "name": "eweOS Official Repository",
     "url": "https://os-repo.ewe.moe/eweos-images",
-    "tags": ["Official"]
+    "tags": ["Official", "With Snapshots"]
   },
   {
     "id": "eweos-bak",
@@ -15,6 +15,6 @@
     "id": "eweos-dn42",
     "name": "eweOS Official Repository (DN42)",
     "url": "http://repo.nia.dn42/eweos-images",
-    "tags": ["Official", "Limited-access"]
+    "tags": ["Official", "With Snapshots", "Limited Access"]
   }
 ]

@@ -26,7 +26,7 @@
       <v-col
         cols="12"
         sm="6"
-        md="6"
+        md="4"
         lg="3"
         v-for="feature in features"
         :key="feature"
@@ -40,6 +40,15 @@
             class="text-center pa-1"
             v-html="feature.desc"
           ></v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card variant="outlined" color="grey">
+          <v-card-text
+            class="text-center pa-1"
+          >
+          Want more? Please tell us!
+        </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -102,8 +111,8 @@ export default {
         desc: "as allocator",
       },
       {
-        pkg: "? ? ?",
-        desc: "(Soon &trade;)",
+        pkg: "wayland",
+        desc: "as display protocol",
       },
     ],
   }),
