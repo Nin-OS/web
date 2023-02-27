@@ -41,7 +41,10 @@
             We use GitHub as our source code repository.
           </v-card-text>
           <v-card-actions>
-            <v-btn href="https://github.com/eweOS/packages"> GitHub >> </v-btn>
+            <v-btn href="https://github.com/eweOS/packages">
+              Packages >>
+            </v-btn>
+            <v-btn href="https://github.com/eweOS/images"> Images >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

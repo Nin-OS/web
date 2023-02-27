@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-12">
     <div class="d-flex flex-column align-center">
       <ewe-logo />
       <h1 class="text-h2 text-md-h1"><b>ewe</b>OS</h1>

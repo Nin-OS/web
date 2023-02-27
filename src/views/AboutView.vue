@@ -47,7 +47,7 @@
           <v-card-text
             class="text-center pa-1"
           >
-          Want more? Please tell us!
+          Get a full list <a style="color: unset" href="https://os-wiki.ewe.moe/dev/replacements">here</a>. / Want more? Please tell us!
         </v-card-text>
         </v-card>
       </v-col>
