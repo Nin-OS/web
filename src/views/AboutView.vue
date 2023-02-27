@@ -88,7 +88,11 @@ export default {
       },
       {
         pkg: "musl",
-        desc: "as libc",
+        desc: "as C library",
+      },
+      {
+        pkg: "libc++",
+        desc: "as C++ library",
       },
       {
         pkg: "clang",
@@ -104,15 +108,27 @@ export default {
       },
       {
         pkg: "mold",
-        desc: "as linker",
+        desc: "as default linker",
       },
       {
         pkg: "mimalloc",
-        desc: "as allocator",
+        desc: "as default allocator",
       },
       {
         pkg: "wayland",
         desc: "as display protocol",
+      },
+      {
+        pkg: "tinyramfs",
+        desc: "as initramfs generator",
+      },
+      {
+        pkg: "LTO",
+        desc: "enabled by default",
+      },
+      {
+        pkg: "???",
+        desc: "And more!",
       },
     ],
   }),
