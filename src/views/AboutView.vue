@@ -31,7 +31,7 @@
         v-for="feature in features"
         :key="feature"
       >
-        <v-card variant="outlined">
+        <v-card rounded="lg" variant="outlined">
           <v-card-text class="text-center text-h4 my-2">{{
             feature.pkg
           }}</v-card-text>
@@ -43,7 +43,7 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        <v-card variant="outlined" color="grey">
+        <v-card rounded="lg" variant="outlined" color="grey">
           <v-card-text
             class="text-center pa-1"
           >

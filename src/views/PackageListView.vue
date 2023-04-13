@@ -14,35 +14,19 @@
           variant="outlined"
           v-model="search"
         ></v-text-field>
-        <v-table>
-          <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.key">
-                {{ header.title }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="pkg in filtered_pkglist"
-              :key="pkg['Repository'] + '-' + pkg['Name']"
-              @click="
-                $router.push(
-                  '/packageinfo/' + pkg['Repository'] + '/' + pkg['Name']
-                )
-              "
-            >
-              <template v-for="header in headers" :key="header.key">
-                <td v-if="header.key == 'Name'">
-                  <b>{{ pkg[header.key] }}</b>
-                </td>
-                <td v-else>
-                  {{ pkg[header.key] }}
-                </td>
-              </template>
-            </tr>
-          </tbody>
-        </v-table>
+        <v-data-table
+          :headers="headers"
+          :items="pkglist"
+          items-per-page="20"
+          item-value="name"
+          @click:row="clickrow"
+        >
+          <template #[`item.Name`]="{ item }">
+            <b>
+              {{ item.raw.Name }}
+            </b>
+          </template>
+        </v-data-table>
       </template>
     </div>
   </div>
@@ -50,7 +34,9 @@
 
 <script>
 import axios from "axios";
+import { VDataTable } from "vuetify/labs/VDataTable";
 export default {
+  components: { VDataTable },
   created() {
     axios.get("https://os-repo.ewe.moe/eweos/pkgs.json").then((resp) => {
       this.loading = false;
@@ -62,6 +48,13 @@ export default {
       if (this.search) {
         return this.pkglist.filter((pkg) => pkg["Name"].includes(this.search));
       } else return this.pkglist;
+    },
+  },
+  methods: {
+    clickrow(_,pkg) {
+      this.$router.push(
+        "/packageinfo/" + pkg.item.value["Repository"] + "/" + pkg.item.value["Name"]
+      );
     },
   },
   data: () => ({

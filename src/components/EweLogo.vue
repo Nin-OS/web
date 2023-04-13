@@ -68,7 +68,7 @@ export default {
   fill-opacity: 0;
   stroke-width: 0;
   stroke: transparent;
-  animation: ani 8s linear forwards;
+  animation: opacityani 7s linear forwards;
 }
 
 .path {
@@ -77,21 +77,28 @@ export default {
   stroke: rgb(0, 0, 0);
   stroke-dasharray: 110;
   stroke-dashoffset: 100;
-  animation: ani 5s linear forwards;
+  animation: strokeani 5s linear forwards, opacityani 5s linear forwards;
 }
 
-@keyframes ani {
+@keyframes strokeani {
   60% {
-    fill-opacity: 0;
     stroke-dashoffset: 40;
     stroke-width: 0.4px;
     stroke-opacity: 1;
   }
   100% {
-    fill-opacity: 1;
     stroke-dashoffset: 0;
     stroke-width: 0px;
     stroke-opacity: 0;
+  }
+}
+
+@keyframes opacityani {
+  60% {
+    fill-opacity: 0;
+  }
+  100% {
+    fill-opacity: 1;
   }
 }
 </style>

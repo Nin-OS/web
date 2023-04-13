@@ -5,7 +5,7 @@
     </div>
     <v-row>
       <v-col cols="12">
-        <v-card width="100%" variant="outlined">
+        <v-card rounded="lg" width="100%" variant="outlined">
           <v-card-title
             ><v-icon start icon="mdi-package" />Repository</v-card-title
           >
@@ -20,7 +20,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card width="100%" variant="outlined">
+        <v-card rounded="lg" width="100%" variant="outlined">
           <v-card-title
             ><v-icon start icon="mdi-wrench" />Build System</v-card-title
           >
@@ -33,7 +33,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card width="100%" variant="outlined">
+        <v-card rounded="lg" width="100%" variant="outlined">
           <v-card-title
             ><v-icon start icon="mdi-github" />Source Code</v-card-title
           >
@@ -49,7 +49,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card width="100%" variant="outlined">
+        <v-card rounded="lg" width="100%" variant="outlined">
           <v-card-title
             ><v-icon start icon="mdi-server-network" />Test Server</v-card-title
           >
@@ -63,7 +63,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card width="100%" variant="outlined">
+        <v-card rounded="lg" width="100%" variant="outlined">
           <v-card-title
             ><v-icon start icon="mdi-source-repository" />User Repository
             (Soon&trade;)</v-card-title

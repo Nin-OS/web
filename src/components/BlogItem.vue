@@ -1,16 +1,13 @@
 <template>
   <v-card
+    rounded="lg"
     variant="outlined"
     class="my-2 align-self-stretch"
     width="100%"
     :title="post.title"
     :subtitle="'By ' + post.user.login"
   >
-    <v-card-text
-      class="text-truncate"
-      v-text="post.body"
-    >
-    </v-card-text>
+    <v-card-text class="text-truncate" v-text="post.body"> </v-card-text>
     <v-card-actions>
       <v-chip
         variant="text"

@@ -13,7 +13,7 @@
       </p>
 
       <h2 class="mt-2">Supported Platforms</h2>
-      <v-alert class="my-2">
+      <v-alert class="my-2" rounded="lg">
         <p>
           <b>Tier-0 Platforms:</b><br />
           x86_64
