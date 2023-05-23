@@ -18,6 +18,11 @@ const routes = [
     component: () => import("../views/PackagesView.vue"),
   },
   {
+    path: "/buildstatus",
+    name: "Build Status",
+    component: () => import("../views/BuildStatusView.vue"),
+  },
+  {
     path: "/packageinfo",
     name: "Package List",
     component: () => import("../views/PackageListView.vue"),

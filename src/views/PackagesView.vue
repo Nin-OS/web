@@ -15,7 +15,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-repo.ewe.moe"> Repo >> </v-btn>
-            <v-btn to="/packageinfo"> Package List >> </v-btn>
+            <v-btn href="https://os-repo-new.ewe.moe"> New Repo (Testing) >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -25,10 +25,11 @@
             ><v-icon start icon="mdi-wrench" />Build System</v-card-title
           >
           <v-card-text>
-            We use Open Build Service(OBS) as our build system.
+            We use Open Build Service(OBS) as our build system. And currently we are testing our new build system.
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-build.ewe.moe"> OBS >> </v-btn>
+            <v-btn to="/buildstatus"> Build System (Testing) >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
