@@ -96,7 +96,7 @@ export default {
       },
       {
         pkg: "clang",
-        desc: "as default C compiler",
+        desc: "as C compiler",
       },
       {
         pkg: "busybox",
@@ -112,7 +112,7 @@ export default {
       },
       {
         pkg: "mimalloc",
-        desc: "as default allocator",
+        desc: "as allocator",
       },
       {
         pkg: "wayland",
@@ -127,8 +127,8 @@ export default {
         desc: "enabled by default",
       },
       {
-        pkg: "???",
-        desc: "And more!",
+        pkg: "llvm-as",
+        desc: "as default assembler",
       },
     ],
   }),
