@@ -127,7 +127,7 @@ export default {
         desc: "enabled by default",
       },
       {
-        pkg: "llvm-as",
+        pkg: "yasm",
         desc: "as default assembler",
       },
     ],
