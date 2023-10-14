@@ -15,7 +15,6 @@
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-repo.ewe.moe"> Repo >> </v-btn>
-            <v-btn href="https://os-repo-new.ewe.moe"> New Repo (Testing) >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -29,7 +28,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-build.ewe.moe"> OBS >> </v-btn>
-            <v-btn to="/buildstatus"> Build System (Testing) >> </v-btn>
+            <v-btn to="/pkginfo"> Package Info >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -39,7 +38,7 @@
             ><v-icon start icon="mdi-github" />Source Code</v-card-title
           >
           <v-card-text>
-            We use GitHub as our source code repository.
+            We use GitHub as our source code repository and continuous integration (CI) platform.
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://github.com/eweOS/packages">

@@ -18,24 +18,9 @@ const routes = [
     component: () => import("../views/PackagesView.vue"),
   },
   {
-    path: "/buildstatus",
-    name: "Build Status",
-    component: () => import("../views/BuildStatusView.vue"),
-  },
-  {
-    path: "/packageinfo",
-    name: "Package List",
-    component: () => import("../views/PackageListView.vue"),
-  },
-  {
-    path: "/packageinfo/:repo/:pkg",
+    path: "/pkginfo",
     name: "Package Info",
-    component: () => import("../views/PackageDetailView.vue"),
-  },
-  {
-    path: "/packagesearch/:pkg",
-    name: "Searching Package",
-    component: () => import("../views/PackageSearchView.vue"),
+    component: () => import("../views/PackageInfoView.vue"),
   },
   {
     path: "/about",
