@@ -16,5 +16,11 @@
     "name": "eweOS Official Repository (DN42)",
     "url": "http://repo.nia.dn42/eweos-images",
     "tags": ["Official", "With Snapshots", "Limited Access"]
+  },
+  {
+    "id": "ewe-ba1tih-tk",
+    "name": "ewe.ba1tih.tk",
+    "url": "https://ewe.ba1tih.tk/eweos-images",
+    "tags": []
   }
 ]
