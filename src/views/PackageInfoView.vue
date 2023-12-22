@@ -1,161 +1,166 @@
 <template>
-  <div v-if="!loading">
-    <v-chip-group v-model="filterkey" selected-class="text-primary" column>
-      <v-chip> Update Available </v-chip>
-      <v-chip> Update Disabled </v-chip>
-    </v-chip-group>
-    <VDataTable
-      :loading="loading"
-      :headers="headers"
-      :items="pkglist"
-      :search="filterkeystr"
-      :custom-filter="filteritems"
-      :items-per-page="100"
-    >
-      <template v-slot:[`item.pkgname`]="{ item }">
-        <v-chip
-          :href="'https://github.com/eweOS/packages/tree/' + item.raw.pkgname"
-          class="mx-1 my-1"
-          variant="text"
-          size="large"
-        >
-          {{ item.raw.pkgname }}
-        </v-chip>
-      </template>
-      <template v-slot:[`item.pkgdata`]="{ item }">
-        <v-tooltip
-          :disabled="!item.raw.pkgdata.update_date"
-          location="bottom"
-          :text="
-            item.raw.pkgdata.update_date
-              ? moment.unix(item.raw.pkgdata.update_date).fromNow()
-              : 'Unknown'
+  <div>
+    <div class="d-flex flex-column">
+      <h1 class="mb-2"># Package Info</h1>
+      <div class="d-flex flex-column align-center" v-if="loading">
+        <v-progress-circular :size="70" :width="7" indeterminate />
+      </div>
+      <v-card variant="outlined" v-else>
+        <v-card-title>
+          <v-icon start>mdi-package</v-icon>
+          {{ pkg["Name"] }}
+          <span class="font-weight-light">({{ pkg["Version"] }})</span>
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="4" md="6">Repository:</v-col>
+            <v-col cols="8" md="6">{{ pkg["Repository"] }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="6">Description:</v-col>
+            <v-col cols="8" md="6">{{ pkg["Description"] }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="6">Upstream URL:</v-col>
+            <v-col cols="8" md="6">{{ pkg["URL"] }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="6">License(s):</v-col>
+            <v-col cols="8" md="6">
+              <template v-for="it in pkg['Licenses'].split(' ')" :key="it">
+                <a class="mr-1" v-if="it in licenses" :href="licenses[it]">
+                  {{ it }}</a
+                >
+                <span class="mr-1" v-else>
+                  {{ it }}
+                </span>
+              </template>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="6">Package Size:</v-col>
+            <v-col cols="8" md="6">{{ pkg["Download Size"] }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="6">Installed Size:</v-col>
+            <v-col cols="8" md="6">{{ pkg["Installed Size"] }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="6">Build Date:</v-col>
+            <v-col cols="8" md="6">{{ pkg["Build Date"] }}</v-col>
+          </v-row>
+        </v-card-text>
+        <template
+          v-if="
+            pkg['Depends On'] !== 'None' ||
+            pkg['Optional Deps'] !== 'None' ||
+            pkg['Conflicts With'] !== 'None' ||
+            pkg['Provides'] !== 'None' ||
+            pkg['Replaces'] !== 'None'
           "
         >
-          <template v-slot:activator="{ props }">
-            <v-chip
-              v-bind="props"
-              :prepend-icon="icon_update(item.raw.pkgdata)"
-              :color="color_update(item.raw.pkgdata)"
-            >
-              <template v-if="item.raw.pkgdata.deprecated">Deprecated</template>
-              <template v-else>
-                {{
-                  item.raw.pkgdata.update_version &&
-                  item.raw.pkgdata.update_version !== item.raw.pkgdata.version
-                    ? item.raw.pkgdata.version +
-                      " -> " +
-                      item.raw.pkgdata.update_version
-                    : item.raw.pkgdata.update_version ||
-                      item.raw.pkgdata.version ||
-                      "Unavailable"
-                }}
-              </template>
-            </v-chip>
-          </template>
-        </v-tooltip>
-      </template>
-    </VDataTable>
+          <v-divider />
+          <v-card-text>
+            <v-row v-if="pkg['Depends On'] !== 'None'">
+              <v-col cols="4" md="6">Depends On:</v-col>
+              <v-col cols="8" md="6">
+                <template v-for="it in pkg['Depends On'].split(' ')" :key="it">
+                  <a
+                    class="mr-1"
+                    v-if="resolve_pkg_name(it)"
+                    :href="'/packagesearch/' + resolve_pkg_name(it)"
+                  >
+                    {{ it }}</a
+                  >
+                  <span class="mr-1" v-else>
+                    {{ it }}
+                  </span>
+                </template>
+              </v-col>
+            </v-row>
+            <v-row v-if="pkg['Optional Deps'] !== 'None'">
+              <v-col cols="4" md="6">Optional Deps:</v-col>
+              <v-col cols="8" md="6">{{ pkg["Optional Deps"] }}</v-col>
+            </v-row>
+            <v-row v-if="pkg['Conflicts With'] !== 'None'">
+              <v-col cols="4" md="6">Conflicts With:</v-col>
+              <v-col cols="8" md="6">{{ pkg["Conflicts With"] }}</v-col>
+            </v-row>
+            <v-row v-if="pkg['Provides'] !== 'None'">
+              <v-col cols="4" md="6">Provides:</v-col>
+              <v-col cols="8" md="6">{{ pkg["Provides"] }}</v-col>
+            </v-row>
+            <v-row v-if="pkg['Replaces'] !== 'None'">
+              <v-col cols="4" md="6">Replaces:</v-col>
+              <v-col cols="8" md="6">{{ pkg["Replaces"] }}</v-col>
+            </v-row>
+          </v-card-text>
+        </template>
+        <v-divider />
+        <v-card-actions>
+          <v-btn :href="'https://github.com/eweOS/packages/tree/' + pkg['Name']"
+            ><v-icon start>mdi-github</v-icon>Source Code</v-btn
+          >
+          <v-btn
+            :href="
+              'https://os-build.ewe.moe/package/show/eweOS:Main/' + pkg['Name']
+            "
+            ><v-icon start>mdi-wrench</v-icon>OBS</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </div>
   </div>
-  <v-row v-else class="fill-height" align-content="center" justify="center">
-    <v-col class="text-subtitle-1 text-center" cols="12">
-      Fetching data...
-    </v-col>
-    <v-col cols="6">
-      <v-progress-linear indeterminate rounded height="6"></v-progress-linear>
-    </v-col>
-  </v-row>
 </template>
 
 <script>
-import moment from "moment";
+import licenses from "@/data/licenses.json";
 import axios from "axios";
-import { VDataTable } from "vuetify/labs/VDataTable";
 export default {
-  components: { VDataTable },
   created() {
-    axios
-      .get(
-        "https://raw.githubusercontent.com/eweOS/workflow/updatecheck/result.json"
-      )
-      .then((resp) => {
-        for (const pkg of Object.keys(resp.data.compare)) {
-          this.pkglist.push({
-            pkgname: pkg,
-            pkgdata: {
-              update_date: resp.data.compare[pkg],
-              update_version: resp.data.upstream[pkg].version,
-              version: resp.data.downstream[pkg].version,
-            },
-          });
-        }
+    axios.get("https://raw.githubusercontent.com/eweOS/workflow/pkginfo-amd64/pkgs.json").then((resp) => {
+      if (!this.$route.params.repo) {
+        this.pkg = resp.data.find(
+          (pkg) => pkg["Name"] === this.$route.params.pkg
+        );
+      } else {
+        this.pkg = resp.data.find(
+          (pkg) =>
+            pkg["Name"] === this.$route.params.pkg &&
+            pkg["Repository"] === this.$route.params.repo
+        );
+      }
+      if (!this.pkg) {
+        this.$router.push("/404");
+      } else if (!this.$route.params.repo) {
+        this.$router.push(
+          "/packageinfo/" + this.pkg["Repository"] + "/" + this.pkg["Name"]
+        );
+      } else {
         this.loading = false;
-      });
-  },
-  computed: {
-    filterkeystr() {
-      if (this.filterkey == null) return null;
-      return this.filterkey.toString();
-    },
+      }
+    });
   },
   methods: {
-    icon_build(d) {
-      if (!d.build_version) return "mdi-help-circle-outline";
-      if (d.build_status == 0) return "mdi-check-circle-outline";
-      else return "mdi-alert-outline";
-    },
-    color_build(d) {
-      if (!d.build_version) return "grey";
-      if (d.build_status == 0) return "success";
-      else return "error";
-    },
-    icon_update(d) {
-      if (d.deprecated) return "mdi-minus-circle-outline";
-      if (!d.update_version) return "mdi-help-circle-outline";
-      if (d.update_version == d.version) return "mdi-check-circle-outline";
-      if (d.update_error) return "mdi-alert-outline";
-      else return "mdi-update";
-    },
-    color_update(d) {
-      if (d.deprecated) return "grey";
-      if (d.update_version == d.version) return "grey";
-      if (d.update_error) return "error";
-      else return "warning";
-    },
-    filteritems(a, b, value) {
-      switch (this.filterkey) {
-        case 0: {
-          if (!value.pkgdata.update_version || !value.pkgdata.version)
-            return false;
-          return (
-            value.pkgdata.update_version !== value.pkgdata.version
-          );
-        }
-        case 1: {
-          if (value.pkgdata) return !value.pkgdata.update_version;
-          return false;
-        }
-        default:
-          return true;
+    resolve_pkg_name(pkgstr) {
+      let pkgname = pkgstr.split("=", 1)[0];
+      pkgname = pkgname.replace(">", "");
+      pkgname = pkgname.replace("<", "");
+      if (!pkgname.endsWith(".so")) {
+        return pkgname;
       }
+      return false;
     },
   },
   data: () => ({
-    moment: moment,
-    headers: [
-      {
-        title: "Source Name",
-        key: "pkgname",
-      },
-      {
-        title: "Update Status",
-        key: "pkgdata",
-        sortable: false,
-      },
-    ],
+    licenses: licenses,
     loading: true,
-    pkglist: [],
-    filterkey: null,
+    pkg: null,
   }),
 };
 </script>
+<style scoped>
+a {
+  color: unset;
+}
+</style>

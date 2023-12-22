@@ -28,7 +28,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-build.ewe.moe"> OBS >> </v-btn>
-            <v-btn to="/pkginfo"> Package Info >> </v-btn>
+            <v-btn to="/pkglist"> Package List >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

@@ -4,19 +4,18 @@
     <div class="d-flex flex-column align-center" v-if="!loading">
       <blog-item v-for="post in posts" :key="post.number" :post="post" />
     </div>
-    <div class="d-flex flex-column align-center" v-if="loading">
-      <v-progress-circular :size="70" :width="7" indeterminate />
-    </div>
+    <LoadingBar v-if="loading" />
   </div>
 </template>
 
 <script>
 import BlogItem from "@/components/BlogItem.vue";
+import LoadingBar from "@/components/LoadingBar.vue";
 import axios from "axios";
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "BlogView",
-  components: { BlogItem },
+  components: { BlogItem, LoadingBar },
   data: () => ({
     posts: [],
     loading: true,
