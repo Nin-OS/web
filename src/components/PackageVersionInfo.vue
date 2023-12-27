@@ -96,7 +96,7 @@ export default {
           else ret.push(pkg["Name"]);
         });
       });
-      return ret;
+      return [...new Set(ret)];
     },
     headers() {
       let ret = [

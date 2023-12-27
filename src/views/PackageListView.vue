@@ -69,7 +69,7 @@ export default {
       axios
         .get(
           "https://raw.githubusercontent.com/eweOS/workflow/pkginfo-" +
-            this.archmap[arch] +
+            arch +
             "/pkgs.json"
         )
         .then((resp) => {
@@ -129,11 +129,6 @@ export default {
         aarch64: true,
         riscv64: true,
       },
-    },
-    archmap: {
-      x86_64: "amd64",
-      aarch64: "arm64",
-      riscv64: "riscv64",
     },
     pkgupdatelist: [],
     pkgverlist: {},
