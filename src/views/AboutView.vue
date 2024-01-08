@@ -127,8 +127,8 @@ export default {
         desc: "enabled by default",
       },
       {
-        pkg: "yasm",
-        desc: "as default assembler",
+        pkg: "limine",
+        desc: "as default bootloader",
       },
     ],
   }),
