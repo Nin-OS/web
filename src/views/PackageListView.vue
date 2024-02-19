@@ -33,6 +33,7 @@ export default {
   components: { PackageUpdateInfo, PackageVersionInfo, LoadingBar, VTabs },
   created() {
     this.fetch_update();
+    this.fetch_noupdate();
     Object.keys(this.loading.version).forEach((arch) => {
       this.fetch_arch(arch);
     });
@@ -57,11 +58,27 @@ export default {
               pkgdata: {
                 update_date: resp.data.compare[pkg],
                 update_version: resp.data.upstream[pkg].version,
+                update_timestamp: resp.data.upstream[pkg].epoch,
                 version: resp.data.downstream[pkg].version,
+                timestamp: resp.data.downstream[pkg].epoch,
               },
             });
           }
           this.loading.update = false;
+        });
+    },
+    fetch_noupdate() {
+      axios
+        .get(
+          "https://raw.githubusercontent.com/eweOS/workflow/updatecheck/nodata.json"
+        )
+        .then((resp) => {
+          resp.data.forEach((pkg) => {
+            this.pkgupdatelist.push({
+              pkgname: pkg,
+              pkgdata: null,
+            });
+          });
         });
     },
     fetch_arch(arch) {

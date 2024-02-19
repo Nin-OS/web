@@ -26,7 +26,13 @@
       </v-chip>
     </template>
     <template v-slot:[`item.pkgdata`]="{ item }">
+      <template v-if="!item.raw.pkgdata">
+        <v-chip prepend-icon="mdi-minus-circle-outline" color="grey">
+          No data
+        </v-chip>
+      </template>
       <v-tooltip
+        v-else
         :disabled="!item.raw.pkgdata.update_date"
         location="bottom"
         :text="
@@ -66,6 +72,7 @@
 import moment from "moment";
 
 import { VDataTable } from "vuetify/labs/VDataTable";
+import { compareVersions, validate } from "compare-versions";
 
 export default {
   components: { VDataTable },
@@ -81,25 +88,41 @@ export default {
       if (d.deprecated) return "mdi-minus-circle-outline";
       if (!d.update_version) return "mdi-help-circle-outline";
       if (d.update_version == d.version) return "mdi-check-circle-outline";
+      if (validate(d.update_version) && validate(d.version))
+        if (!compareVersions(d.update_version, d.version))
+          return "mdi-check-circle-outline";
       if (d.update_error) return "mdi-alert-outline";
       else return "mdi-update";
     },
     color_update(d) {
       if (d.deprecated) return "grey";
       if (d.update_version == d.version) return "grey";
+      if (validate(d.update_version) && validate(d.version))
+        if (!compareVersions(d.update_version, d.version)) return "grey";
       if (d.update_error) return "error";
       else return "warning";
     },
     filteritems(a, b, value) {
       switch (this.filterkey) {
         case 0: {
+          if (!value.pkgdata) return false;
           if (!value.pkgdata.update_version || !value.pkgdata.version)
             return false;
+          if (
+            validate(value.pkgdata.update_version) &&
+            validate(value.pkgdata.version)
+          )
+            if (
+              !compareVersions(
+                value.pkgdata.update_version,
+                value.pkgdata.version
+              )
+            )
+              return false;
           return value.pkgdata.update_version !== value.pkgdata.version;
         }
         case 1: {
-          if (value.pkgdata) return !value.pkgdata.update_version;
-          return false;
+          return !value.pkgdata;
         }
         default:
           return true;
