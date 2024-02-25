@@ -44,7 +44,7 @@
             <v-btn href="https://github.com/eweOS/packages">
               Packages >>
             </v-btn>
-            <v-btn href="https://github.com/eweOS/images"> Images >> </v-btn>
+            <v-btn href="https://github.com/eweOS/iso"> Images >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
