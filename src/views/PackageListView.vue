@@ -5,7 +5,11 @@
   </v-tabs>
   <v-window v-model="tab">
     <v-window-item value="upgrade">
-      <PackageUpdateInfo v-if="!loading.update" :pkglist="pkgupdatelist" />
+      <PackageUpdateInfo
+        v-if="!loading.update"
+        :pkglist="pkgupdatelist"
+        :pkgerrlist="pkgupdateerrlist"
+      />
       <LoadingBar v-else />
     </v-window-item>
 
@@ -20,7 +24,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import axios from "axios";
 
 import PackageUpdateInfo from "@/components/PackageUpdateInfo.vue";
@@ -34,61 +37,55 @@ export default {
   created() {
     this.fetch_update();
     this.fetch_noupdate();
+    this.fetch_failed();
+    this.fetch_deprecated();
     Object.keys(this.loading.version).forEach((arch) => {
       this.fetch_arch(arch);
     });
   },
-  computed: {
-    filterkeystr() {
-      if (this.filterkey == null) return null;
-      return this.filterkey.toString();
-    },
-  },
   methods: {
     fetch_update() {
       this.loading.update = true;
-      axios
-        .get(
-          "https://raw.githubusercontent.com/eweOS/workflow/updatecheck/result.json"
-        )
-        .then((resp) => {
-          for (const pkg of Object.keys(resp.data.compare)) {
-            this.pkgupdatelist.push({
-              pkgname: pkg,
-              pkgdata: {
-                update_date: resp.data.compare[pkg],
-                update_version: resp.data.upstream[pkg].version,
-                update_timestamp: resp.data.upstream[pkg].epoch,
-                version: resp.data.downstream[pkg].version,
-                timestamp: resp.data.downstream[pkg].epoch,
-              },
-            });
-          }
-          this.loading.update = false;
-        });
+      axios.get(this.repourl + "/updatecheck/result.json").then((resp) => {
+        for (const pkg of Object.keys(resp.data.compare)) {
+          this.pkgupdatelist.push({
+            pkgname: pkg,
+            pkgdata: {
+              update_date: resp.data.compare[pkg],
+              update_version: resp.data.upstream[pkg].version,
+              update_timestamp: resp.data.upstream[pkg].epoch,
+              version: resp.data.downstream[pkg].version,
+              timestamp: resp.data.downstream[pkg].epoch,
+            },
+          });
+        }
+        this.loading.update = false;
+      });
     },
     fetch_noupdate() {
-      axios
-        .get(
-          "https://raw.githubusercontent.com/eweOS/workflow/updatecheck/nodata.json"
-        )
-        .then((resp) => {
-          resp.data.forEach((pkg) => {
-            this.pkgupdatelist.push({
-              pkgname: pkg,
-              pkgdata: null,
-            });
+      axios.get(this.repourl + "/updatecheck/nodata.json").then((resp) => {
+        resp.data.forEach((pkg) => {
+          this.pkgupdatelist.push({
+            pkgname: pkg,
+            pkgdata: null,
           });
         });
+      });
+    },
+    fetch_failed() {
+      axios.get(this.repourl + "/updatecheck/failed.json").then((resp) => {
+        this.pkgupdateerrlist.failed = resp.data.concat();
+      });
+    },
+    fetch_deprecated() {
+      axios.get(this.repourl + "/updatecheck/deprecated.json").then((resp) => {
+        this.pkgupdateerrlist.deprecated = resp.data.concat();
+      });
     },
     fetch_arch(arch) {
       this.loading.version[arch] = true;
       axios
-        .get(
-          "https://raw.githubusercontent.com/eweOS/workflow/pkginfo-" +
-            arch +
-            "/pkgs.json"
-        )
+        .get(this.repourl + "/pkginfo-" + arch + "/_pkgs_brief.json")
         .then((resp) => {
           this.pkgverlist[arch] = resp.data;
           this.loading.version[arch] = false;
@@ -98,47 +95,8 @@ export default {
           this.loading.version[arch] = false;
         });
     },
-    icon_build(d) {
-      if (!d.build_version) return "mdi-help-circle-outline";
-      if (d.build_status == 0) return "mdi-check-circle-outline";
-      else return "mdi-alert-outline";
-    },
-    color_build(d) {
-      if (!d.build_version) return "grey";
-      if (d.build_status == 0) return "success";
-      else return "error";
-    },
-    icon_update(d) {
-      if (d.deprecated) return "mdi-minus-circle-outline";
-      if (!d.update_version) return "mdi-help-circle-outline";
-      if (d.update_version == d.version) return "mdi-check-circle-outline";
-      if (d.update_error) return "mdi-alert-outline";
-      else return "mdi-update";
-    },
-    color_update(d) {
-      if (d.deprecated) return "grey";
-      if (d.update_version == d.version) return "grey";
-      if (d.update_error) return "error";
-      else return "warning";
-    },
-    filteritems(a, b, value) {
-      switch (this.filterkey) {
-        case 0: {
-          if (!value.pkgdata.update_version || !value.pkgdata.version)
-            return false;
-          return value.pkgdata.update_version !== value.pkgdata.version;
-        }
-        case 1: {
-          if (value.pkgdata) return !value.pkgdata.update_version;
-          return false;
-        }
-        default:
-          return true;
-      }
-    },
   },
   data: () => ({
-    moment: moment,
     loading: {
       update: true,
       version: {
@@ -148,8 +106,13 @@ export default {
       },
     },
     pkgupdatelist: [],
+    pkgupdateerrlist: {
+      failed: [],
+      deprecated: [],
+    },
     pkgverlist: {},
     tab: "upgrade",
+    repourl: "https://raw.githubusercontent.com/eweOS/workflow",
   }),
 };
 </script>

@@ -5,8 +5,10 @@
     selected-class="text-primary"
     column
   >
-    <v-chip> Update Available </v-chip>
-    <v-chip> Update Disabled </v-chip>
+    <v-chip> Check Available </v-chip>
+    <v-chip> Check Not Configured </v-chip>
+    <v-chip v-if="pkgerrlist.failed.length"> Check Failed </v-chip>
+    <v-chip v-if="pkgerrlist.deprecated.length"> Deprecated </v-chip>
   </v-chip-group>
   <VDataTable
     :headers="headers"
@@ -45,20 +47,35 @@
         <template v-slot:activator="{ props }">
           <v-chip
             v-bind="props"
+            prepend-icon="mdi-minus-circle-outline"
+            v-if="this.pkgerrlist.deprecated.includes(item.raw.pkgname)"
+            color="default"
+          >
+            Deprecated
+          </v-chip>
+          <v-chip
+            v-bind="props"
+            prepend-icon="mdi-alert-outline"
+            v-else-if="this.pkgerrlist.failed.includes(item.raw.pkgname)"
+            color="error"
+          >
+            Failed
+          </v-chip>
+          <v-chip
+            v-else
+            v-bind="props"
             :prepend-icon="icon_update(item.raw.pkgdata)"
             :color="color_update(item.raw.pkgdata)"
           >
-            <template v-if="item.raw.pkgdata.deprecated">Deprecated</template>
-            <template v-else>
-              {{
-                item.raw.pkgdata.update_version
-                  ? fmtstr(
-                      item.raw.pkgdata.version,
-                      item.raw.pkgdata.update_version
-                    )
-                  : item.raw.pkgdata.version || "Unavailable"
-              }}
-            </template>
+            {{
+              item.raw.pkgdata.update_version ||
+              !this.pkgerrlist.failed.includes(item.raw.pkgname)
+                ? fmtstr(
+                    item.raw.pkgdata.version,
+                    item.raw.pkgdata.update_version
+                  )
+                : item.raw.pkgdata.version || "Unavailable"
+            }}
           </v-chip>
         </template>
       </v-tooltip>
@@ -72,7 +89,7 @@ import moment from "moment";
 import { VDataTable } from "vuetify/labs/VDataTable";
 export default {
   components: { VDataTable },
-  props: ["pkglist"],
+  props: ["pkglist", "pkgerrlist"],
   computed: {
     filterkeystr() {
       if (this.filterkey == null) return null;
@@ -92,18 +109,14 @@ export default {
       return a < b;
     },
     icon_update(d) {
-      if (d.deprecated) return "mdi-minus-circle-outline";
       if (!d.update_version) return "mdi-help-circle-outline";
       if (d.update_version == d.version) return "mdi-check-circle-outline";
       if (!this.comparever(d.version, d.update_version))
         return "mdi-check-circle-outline";
-      if (d.update_error) return "mdi-alert-outline";
       else return "mdi-update";
     },
     color_update(d) {
-      if (d.deprecated) return "grey";
       if (!this.comparever(d.version, d.update_version)) return "grey";
-      if (d.update_error) return "error";
       else return "warning";
     },
     filteritems(a, b, value) {
@@ -124,8 +137,14 @@ export default {
         case 1: {
           return !value.pkgdata;
         }
+        case 2: {
+          return this.pkgerrlist.failed.includes(value.pkgname);
+        }
+        case 3: {
+          return this.pkgerrlist.deprecated.includes(value.pkgname);
+        }
         default:
-          return true;
+          return !this.pkgerrlist.deprecated.includes(value.pkgname);
       }
     },
   },
