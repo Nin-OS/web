@@ -7,7 +7,7 @@
   },
   {
     "id": "eweos-bak",
-    "name": "eweOS Official Repository (Backup)",
+    "name": "eweOS Official Repository (Europe)",
     "url": "https://os-repo-bak.ewe.moe/eweos-images/",
     "tags": ["Official", "Backup"]
   },
@@ -19,7 +19,7 @@
   },
   {
     "id": "eweos-cloudflare",
-    "name": "eweOS Cloudflare R2 (Images Only)",
+    "name": "eweOS Cloudflare R2 Repository (Images Only)",
     "url": "https://os-repo-cloudflare.ewe.moe/eweos-images/",
     "tags": ["Official", "Images Only"]
   }

@@ -28,4 +28,9 @@ html {
 .main-content {
   max-width: 900px;
 }
+
+a:not([class*=v])::before {
+  font-family: "Material Design Icons";
+  content: "\F0339 ";
+}
 </style>
