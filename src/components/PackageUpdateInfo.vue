@@ -123,6 +123,8 @@ export default {
       switch (this.filterkey) {
         case 0: {
           if (!value.pkgdata) return false;
+          if (this.pkgerrlist.failed.includes(value.pkgname)) return false;
+          if (this.pkgerrlist.deprecated.includes(value.pkgname)) return false;
           if (!value.pkgdata.update_version || !value.pkgdata.version)
             return false;
           if (
