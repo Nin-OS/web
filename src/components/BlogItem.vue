@@ -12,7 +12,7 @@
       <v-chip
         variant="text"
         prepend-icon="mdi-clock-outline"
-        :text="new Date(post.created_at).toLocaleDateString()"
+        :text="new Date(post.updated_at).toLocaleDateString()"
       />
       <v-spacer />
       <v-btn :to="'/blog/' + post.number"> READ MORE </v-btn>

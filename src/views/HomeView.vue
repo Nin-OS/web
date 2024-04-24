@@ -34,7 +34,10 @@ export default defineComponent({
   mounted() {
     axios.get("https://ewe-obs-trigger.nia.workers.dev/update").then((resp) => {
       this.updated_date = new Date(parseInt(resp.data.updated_date)).toLocaleDateString();
-    });
+    })
+    .catch(()=>{
+      this.updated_date = "Unknown"
+    })
   },
 });
 </script>

@@ -49,13 +49,18 @@ const routes = [
   },
   {
     path: "/:pathMatch(.*)*",
-    redirect: '/error/404'
+    redirect: "/error/404",
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.afterEach((to) => {
+  if (to.name && to.name != "Home") document.title = `eweOS | ${to.name}`;
+  else document.title = "eweOS";
 });
 
 export default router;
