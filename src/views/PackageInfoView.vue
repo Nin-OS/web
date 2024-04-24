@@ -65,14 +65,7 @@
               <v-col cols="4" md="6">Depends On:</v-col>
               <v-col cols="8" md="6">
                 <template v-for="it in pkg['Depends On'].split(' ')" :key="it">
-                  <a
-                    class="mr-1"
-                    v-if="resolve_pkg_name(it)"
-                    :href="'/packagesearch/' + resolve_pkg_name(it)"
-                  >
-                    {{ it }}</a
-                  >
-                  <span class="mr-1" v-else>
+                  <span class="mr-1">
                     {{ it }}
                   </span>
                 </template>
@@ -118,28 +111,28 @@ import licenses from "@/data/licenses.json";
 import axios from "axios";
 export default {
   created() {
-    axios.get("https://raw.githubusercontent.com/eweOS/workflow/pkginfo-amd64/pkgs.json").then((resp) => {
-      if (!this.$route.params.repo) {
-        this.pkg = resp.data.find(
-          (pkg) => pkg["Name"] === this.$route.params.pkg
-        );
-      } else {
-        this.pkg = resp.data.find(
-          (pkg) =>
-            pkg["Name"] === this.$route.params.pkg &&
-            pkg["Repository"] === this.$route.params.repo
-        );
-      }
-      if (!this.pkg) {
-        this.$router.push("/404");
-      } else if (!this.$route.params.repo) {
-        this.$router.push(
-          "/packageinfo/" + this.pkg["Repository"] + "/" + this.pkg["Name"]
-        );
-      } else {
-        this.loading = false;
-      }
-    });
+    axios
+      .get(
+        "https://raw.githubusercontent.com/eweOS/workflow/pkginfo-" +
+          (this.$route.params.arch || "x86_64") +
+          "/" +
+          this.$route.params.repo +
+          "/" +
+          this.$route.params.pkg +
+          ".json"
+      )
+      .then((resp) => {
+        this.pkg = resp.data;
+        if (!this.pkg) {
+          this.$router.push("/404");
+        } else if (!this.$route.params.repo) {
+          this.$router.push(
+            "/packageinfo/" + this.pkg["Repository"] + "/" + this.pkg["Name"]
+          );
+        } else {
+          this.loading = false;
+        }
+      });
   },
   methods: {
     resolve_pkg_name(pkgstr) {

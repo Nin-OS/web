@@ -81,7 +81,39 @@
               size="x-small"
               variant="outlined"
               label
-              >Images Only</v-chip
+              >Daily</v-chip
+            >
+          </v-list-item-subtitle>
+          <template v-slot:append>
+            <img
+              height="24"
+              src="https://img.shields.io/github/actions/workflow/status/eweOS/iso/publish_iso.yml?style=for-the-badge&logo=github&label=ISO"
+            />
+            <v-btn
+              href="https://github.com/eweOS/iso/actions/workflows/publish_iso.yml"
+              variant="text"
+              icon="mdi-download-box"
+            ></v-btn>
+          </template>
+        </v-list-item>
+        <v-divider />
+      </v-list>
+
+      <h2 class="mt-2">Docker Images</h2>
+      <v-list two-lines>
+        <v-divider />
+        <v-list-item>
+          <v-list-item-title>
+            <code>ghcr.io/eweos/docker:master</code>
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            <v-chip
+              class="mr-2"
+              outlined
+              size="x-small"
+              variant="outlined"
+              label
+              >Official</v-chip
             >
             <v-chip
               class="mr-2"
@@ -95,12 +127,12 @@
           <template v-slot:append>
             <img
               height="24"
-              src="https://img.shields.io/github/actions/workflow/status/eweOS/iso/publish_iso.yml?style=for-the-badge&logo=github&label=ISO"
+              src="https://img.shields.io/github/actions/workflow/status/eweOS/docker/docker-publish.yml?style=for-the-badge&logo=github&label=Docker"
             />
             <v-btn
-              href="https://github.com/eweOS/iso/actions/workflows/publish_iso.yml"
+              href="https://github.com/eweOS/docker/actions/workflows/docker-publish.yml"
               variant="text"
-              icon="mdi-download-box"
+              icon="mdi-docker"
             ></v-btn>
           </template>
         </v-list-item>

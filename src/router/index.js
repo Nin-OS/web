@@ -17,11 +17,11 @@ const routes = [
     name: "Packages",
     component: () => import("../views/PackagesView.vue"),
   },
-  // {
-  //   path: "/pkginfo/:repo/:pkg",
-  //   name: "Package Info",
-  //   component: () => import("../views/PackageInfoView.vue"),
-  // },
+  {
+    path: "/pkginfo/:repo/:pkg/:arch?",
+    name: "Package Info",
+    component: () => import("../views/PackageInfoView.vue"),
+  },
   {
     path: "/pkglist",
     name: "Package List",
