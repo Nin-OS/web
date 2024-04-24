@@ -15,6 +15,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-repo.ewe.moe"> Repo >> </v-btn>
+            <v-btn href="https://github.com/eweOS/bugs/issues"> Bugs >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
