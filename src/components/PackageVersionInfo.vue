@@ -29,7 +29,7 @@
       <v-chip
         :prepend-icon="icon_version(find_package(item.raw, arch))"
         class="mx-1 my-1"
-        :color="color_version(find_package(item.raw, arch))"
+        :color="color_package(item.raw, arch)"
         v-if="!item.raw.includes('/')"
       >
         {{
@@ -47,9 +47,7 @@
         "
         class="mx-1 my-1"
         :color="
-          color_version(
-            find_package(item.raw.split('/')[1], arch, item.raw.split('/')[0])
-          )
+          color_package(item.raw.split('/')[1], arch, item.raw.split('/')[0])
         "
       >
         {{
@@ -72,6 +70,16 @@ export default {
   components: { VDataTable },
   props: ["pkglist"],
   methods: {
+    maxstr(arr) {
+      return arr.reduce(
+        (a, v) => {
+          a.min = a.min === null ? v : v.localeCompare(a.min) < 0 ? v : a.min;
+          a.max = a.max === null ? v : v.localeCompare(a.max) > 0 ? v : a.max;
+          return a;
+        },
+        { min: null, max: null }
+      );
+    },
     find_package(pkgname, arch, repo = "main") {
       return this.pkglist[arch].find(
         (e) => e.Name === pkgname && e.Repository === repo
@@ -81,9 +89,17 @@ export default {
       if (!d) return "mdi-null";
       return "mdi-package";
     },
-    color_version(d) {
-      if (!d) return "grey";
-      return "success";
+    color_package(pkgname, arch, repo = "main") {
+      if (!pkgname) return "grey";
+      let allver = [];
+      Object.keys(this.pkglist).forEach((farch) => {
+        let pkg = this.find_package(pkgname, farch, repo);
+        if (pkg) allver.push(pkg.Version);
+      });
+      let thispkg = this.find_package(pkgname, arch, repo);
+      if (!thispkg) return "grey";
+      if (thispkg.Version === this.maxstr(allver).max) return "success";
+      return "warning";
     },
   },
   computed: {
@@ -126,3 +142,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.v-chip {
+  max-width: 150px;
+}
+</style>
