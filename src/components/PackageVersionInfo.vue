@@ -5,17 +5,17 @@
         variant="text"
         :to="
           '/pkginfo/' +
-          (item.raw.includes('/') ? item.raw.split('/')[0] : 'main') +
+          (item.includes('/') ? item.split('/')[0] : 'main') +
           '/' +
-          (item.raw.includes('/') ? item.raw.split('/')[1] : item.raw)
+          (item.includes('/') ? item.split('/')[1] : item)
         "
       >
-        <b v-if="!item.raw.includes('/')">
-          {{ item.raw }}
+        <b v-if="!item.includes('/')">
+          {{ item }}
         </b>
         <template v-else>
-          {{ item.raw.split("/")[0] }}&nbsp; / &nbsp;
-          <b> {{ item.raw.split("/")[1] }}</b>
+          {{ item.split("/")[0] }}&nbsp; / &nbsp;
+          <b> {{ item.split("/")[1] }}</b>
         </template>
       </v-chip>
     </template>
@@ -27,33 +27,28 @@
       v-slot:[`item.pkgdata-`+arch]="{ item }"
     >
       <v-chip
-        :prepend-icon="icon_version(find_package(item.raw, arch))"
+        :prepend-icon="icon_version(find_package(item, arch))"
         class="mx-1 my-1"
-        :color="color_package(item.raw, arch)"
-        v-if="!item.raw.includes('/')"
+        :color="color_package(item, arch)"
+        v-if="!item.includes('/')"
       >
         {{
-          find_package(item.raw, arch)
-            ? find_package(item.raw, arch).Version
-            : "NULL"
+          find_package(item, arch) ? find_package(item, arch).Version : "NULL"
         }}
       </v-chip>
       <v-chip
         v-else
         :prepend-icon="
           icon_version(
-            find_package(item.raw.split('/')[1], arch, item.raw.split('/')[0])
+            find_package(item.split('/')[1], arch, item.split('/')[0])
           )
         "
         class="mx-1 my-1"
-        :color="
-          color_package(item.raw.split('/')[1], arch, item.raw.split('/')[0])
-        "
+        :color="color_package(item.split('/')[1], arch, item.split('/')[0])"
       >
         {{
-          find_package(item.raw.split("/")[1], arch, item.raw.split("/")[0])
-            ? find_package(item.raw.split("/")[1], arch, item.raw.split("/")[0])
-                .Version
+          find_package(item.split("/")[1], arch, item.split("/")[0])
+            ? find_package(item.split("/")[1], arch, item.split("/")[0]).Version
             : "NULL"
         }}
       </v-chip>
@@ -64,10 +59,7 @@
 <script>
 import moment from "moment";
 
-import { VDataTable } from "vuetify/labs/VDataTable";
-
 export default {
-  components: { VDataTable },
   props: ["pkglist"],
   methods: {
     maxstr(arr) {

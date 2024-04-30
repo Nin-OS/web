@@ -5,42 +5,46 @@
     selected-class="text-primary"
     column
   >
-    <v-chip> Check Available </v-chip>
-    <v-chip> Check Not Configured </v-chip>
-    <v-chip v-if="pkgerrlist.failed.length"> Check Failed </v-chip>
-    <v-chip v-if="pkgerrlist.deprecated.length"> Deprecated </v-chip>
+    <v-chip color="warning" value="available"> Update Available </v-chip>
+    <v-chip value="none"> Check Not Configured </v-chip>
+    <v-chip color="error" value="failed" v-if="pkgerrlist.failed.length">
+      Check Failed
+    </v-chip>
+    <v-chip value="deprecated" v-if="pkgerrlist.deprecated.length">
+      Deprecated
+    </v-chip>
   </v-chip-group>
   <VDataTable
     :headers="headers"
     :items="pkglist"
-    :search="filterkeystr"
+    :search="filterkey"
     :custom-filter="filteritems"
     :items-per-page="100"
   >
     <template v-slot:[`item.pkgname`]="{ item }">
       <v-chip
-        :href="'https://github.com/eweOS/packages/tree/' + item.raw.pkgname"
+        :href="'https://github.com/eweOS/packages/tree/' + item.pkgname"
         class="mx-1 my-1"
         variant="text"
         size="large"
       >
-        {{ item.raw.pkgname }}
+        {{ item.pkgname }}
       </v-chip>
     </template>
     <template v-slot:[`item.pkgdata`]="{ item }">
-      <template v-if="!item.raw.pkgdata">
+      <template v-if="!item.pkgdata">
         <v-chip prepend-icon="mdi-minus-circle-outline" color="grey">
           No data
         </v-chip>
       </template>
       <v-tooltip
         v-else
-        :disabled="!item.raw.pkgdata.update_date"
+        :disabled="!item.pkgdata.update_date"
         location="bottom"
         :text="
           'Checked: ' +
-          (item.raw.pkgdata.update_date
-            ? moment.unix(item.raw.pkgdata.update_date).fromNow()
+          (item.pkgdata.update_date
+            ? moment.unix(item.pkgdata.update_date).fromNow()
             : 'Unknown')
         "
       >
@@ -48,7 +52,7 @@
           <v-chip
             v-bind="props"
             prepend-icon="mdi-minus-circle-outline"
-            v-if="this.pkgerrlist.deprecated.includes(item.raw.pkgname)"
+            v-if="this.pkgerrlist.deprecated.includes(item.pkgname)"
             color="default"
           >
             Deprecated
@@ -56,7 +60,7 @@
           <v-chip
             v-bind="props"
             prepend-icon="mdi-alert-outline"
-            v-else-if="this.pkgerrlist.failed.includes(item.raw.pkgname)"
+            v-else-if="this.pkgerrlist.failed.includes(item.pkgname)"
             color="error"
           >
             Failed
@@ -64,17 +68,14 @@
           <v-chip
             v-else
             v-bind="props"
-            :prepend-icon="icon_update(item.raw.pkgdata)"
-            :color="color_update(item.raw.pkgdata)"
+            :prepend-icon="icon_update(item.pkgdata)"
+            :color="color_update(item.pkgdata)"
           >
             {{
-              item.raw.pkgdata.update_version ||
-              !this.pkgerrlist.failed.includes(item.raw.pkgname)
-                ? fmtstr(
-                    item.raw.pkgdata.version,
-                    item.raw.pkgdata.update_version
-                  )
-                : item.raw.pkgdata.version || "Unavailable"
+              item.pkgdata.update_version ||
+              !this.pkgerrlist.failed.includes(item.pkgname)
+                ? fmtstr(item.pkgdata.version, item.pkgdata.update_version)
+                : item.pkgdata.version || "Unavailable"
             }}
           </v-chip>
         </template>
@@ -86,16 +87,8 @@
 <script>
 import moment from "moment";
 
-import { VDataTable } from "vuetify/labs/VDataTable";
 export default {
-  components: { VDataTable },
   props: ["pkglist", "pkgerrlist"],
-  computed: {
-    filterkeystr() {
-      if (this.filterkey == null) return null;
-      return this.filterkey.toString();
-    },
-  },
   methods: {
     fmtstr(a, b) {
       if (this.comparever(a, b)) {
@@ -119,9 +112,10 @@ export default {
       if (!this.comparever(d.version, d.update_version)) return "grey";
       else return "warning";
     },
-    filteritems(a, b, value) {
-      switch (this.filterkey) {
-        case 0: {
+    filteritems(_, query, rawvalue) {
+      const value = rawvalue.columns;
+      switch (query) {
+        case "available": {
           if (!value.pkgdata) return false;
           if (this.pkgerrlist.failed.includes(value.pkgname)) return false;
           if (this.pkgerrlist.deprecated.includes(value.pkgname)) return false;
@@ -136,13 +130,13 @@ export default {
             return false;
           return true;
         }
-        case 1: {
+        case "none": {
           return !value.pkgdata;
         }
-        case 2: {
+        case "failed": {
           return this.pkgerrlist.failed.includes(value.pkgname);
         }
-        case 3: {
+        case "deprecated": {
           return this.pkgerrlist.deprecated.includes(value.pkgname);
         }
         default:
@@ -156,6 +150,7 @@ export default {
       {
         title: "Source Name",
         key: "pkgname",
+        filterable: false,
       },
       {
         title: "Update Status",

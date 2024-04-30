@@ -6,6 +6,7 @@
         <router-view />
       </v-container>
     </v-main>
+    <back-to-top />
     <footer-bar />
   </v-app>
 </template>
@@ -13,9 +14,10 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import FooterBar from "@/components/FooterBar.vue";
+import BackToTop from "@/components/BackToTop.vue";
 export default {
   name: "App",
-  components: { NavBar, FooterBar },
+  components: { NavBar, FooterBar, BackToTop },
   data: () => ({}),
 };
 </script>
@@ -29,7 +31,7 @@ html {
   max-width: 900px;
 }
 
-a:not([class*=v])::before {
+a:not([class*="v"])::before {
   font-family: "Material Design Icons";
   content: "\F0339 ";
 }

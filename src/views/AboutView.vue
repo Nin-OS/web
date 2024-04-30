@@ -8,7 +8,7 @@
     </p>
   </div>
   <div class="mt-4">
-    <h2 class="my-2"># Butter no parsnips</h2>
+    <h2 class="my-4"># Butter no parsnips</h2>
     <p>
       We will use experimental new technologies to implement revolutionary
       software optimizations on eweOS, while considering adaptation to almost
@@ -21,7 +21,7 @@
     <p class="text-caption text-disabled font-weight-light">
       1. Soon &trade; 2. Soon &trade;
     </p>
-    <h2 class="my-2"># Features</h2>
+    <h2 class="my-4"># Features</h2>
     <v-row>
       <v-col
         cols="12"
@@ -32,7 +32,7 @@
         :key="feature"
       >
         <v-card rounded="lg" variant="outlined" :href="feature.link || null">
-          <v-card-text class="text-center text-h4 my-2">{{
+          <v-card-text class="text-center text-h4">{{
             feature.pkg
           }}</v-card-text>
           <v-divider />
@@ -53,7 +53,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <h2 class="my-2"># Community</h2>
+    <h2 class="my-4"># Community</h2>
     <p>
       Join us on Matrix Space:
       <v-chip label size="small" href="https://matrix.to/#/%23os%3Aewe.moe">

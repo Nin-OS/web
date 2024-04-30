@@ -12,6 +12,12 @@
     "target": "/download"
   },
   {
+    "title": "Develop",
+    "type": "internal",
+    "icon": "cog",
+    "target": "/develop"
+  },
+  {
     "title": "Packages",
     "type": "internal",
     "icon": "package",

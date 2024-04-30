@@ -1,22 +1,21 @@
 <template>
   <v-tabs v-model="tab" grow>
-    <v-tab value="upgrade">Upgrades</v-tab>
-    <v-tab value="version">Versions</v-tab>
+    <v-tab value="version"> <v-icon icon="mdi-list-box" start /> Versions </v-tab>
+    <v-tab value="upgrade"> <v-icon icon="mdi-alert-decagram" start /> Upgrades </v-tab>
   </v-tabs>
   <v-window v-model="tab">
+    <v-window-item value="version">
+      <PackageVersionInfo
+        v-if="Object.values(loading.version).indexOf(false) > -1"
+        :pkglist="pkgverlist"
+      />
+      <LoadingBar v-else />
+    </v-window-item>
     <v-window-item value="upgrade">
       <PackageUpdateInfo
         v-if="!loading.update"
         :pkglist="pkgupdatelist"
         :pkgerrlist="pkgupdateerrlist"
-      />
-      <LoadingBar v-else />
-    </v-window-item>
-
-    <v-window-item value="version">
-      <PackageVersionInfo
-        v-if="Object.values(loading.version).indexOf(false) > -1"
-        :pkglist="pkgverlist"
       />
       <LoadingBar v-else />
     </v-window-item>
@@ -111,7 +110,7 @@ export default {
       deprecated: [],
     },
     pkgverlist: {},
-    tab: "upgrade",
+    tab: "version",
     repourl: "https://raw.githubusercontent.com/eweOS/workflow",
   }),
 };

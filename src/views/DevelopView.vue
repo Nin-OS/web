@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-column">
-      <h1 class="mb-2"># Packages</h1>
+      <h1 class="mb-2"># Develop and Improve eweOS</h1>
     </div>
     <v-row>
       <v-col cols="12">
@@ -29,7 +29,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn href="https://os-build.ewe.moe"> OBS >> </v-btn>
-            <v-btn to="/pkglist"> Package List >> </v-btn>
+            <v-btn to="/packages"> Package List >> </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

@@ -21,8 +21,8 @@
         <vue-markdown
           class="mdshow"
           :source="post.body"
-          breaks="true"
-          typographer="true"
+          :breaks="true"
+          :typographer="true"
         />
       </v-card-text>
     </div>

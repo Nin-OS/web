@@ -7,13 +7,11 @@
     :title="post.title"
     :subtitle="'By ' + post.user.login"
   >
-    <v-card-text class="text-truncate" v-text="post.body"> </v-card-text>
+    <v-card-text class="text-truncate">{{ post.body }}</v-card-text>
     <v-card-actions>
-      <v-chip
-        variant="text"
-        prepend-icon="mdi-clock-outline"
-        :text="new Date(post.updated_at).toLocaleDateString()"
-      />
+      <v-chip variant="text" prepend-icon="mdi-clock-outline">
+        {{ new Date(post.updated_at).toLocaleDateString() }}
+      </v-chip>
       <v-spacer />
       <v-btn :to="'/blog/' + post.number"> READ MORE </v-btn>
     </v-card-actions>

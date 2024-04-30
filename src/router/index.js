@@ -13,9 +13,9 @@ const routes = [
     component: () => import("../views/DownloadView.vue"),
   },
   {
-    path: "/packages",
-    name: "Packages",
-    component: () => import("../views/PackagesView.vue"),
+    path: "/develop",
+    name: "Develop",
+    component: () => import("../views/DevelopView.vue"),
   },
   {
     path: "/pkginfo/:repo/:pkg/:arch?",
@@ -23,8 +23,8 @@ const routes = [
     component: () => import("../views/PackageInfoView.vue"),
   },
   {
-    path: "/pkglist",
-    name: "Package List",
+    path: "/packages",
+    name: "Packages",
     component: () => import("../views/PackageListView.vue"),
   },
   {
