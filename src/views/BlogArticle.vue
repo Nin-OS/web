@@ -48,7 +48,7 @@ export default defineComponent({
     axios
       .get(
         "https://api.github.com/repos/eweOS/web/issues/" +
-          this.$route.params.article
+          this.$route.params.article.toString()
       )
       .then((data) => {
         this.post = data.data;

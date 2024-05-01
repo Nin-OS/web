@@ -13,7 +13,7 @@
         {{ new Date(post.updated_at).toLocaleDateString() }}
       </v-chip>
       <v-spacer />
-      <v-btn :to="'/blog/' + post.number"> READ MORE </v-btn>
+      <v-btn :to="'/blog/' + post.number.toString()"> READ MORE </v-btn>
     </v-card-actions>
   </v-card>
 </template>
