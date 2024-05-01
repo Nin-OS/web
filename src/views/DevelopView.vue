@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-column">
-      <h1 class="mb-2"># Develop and Improve eweOS</h1>
+      <h1 class="mb-2"># Develop and Improve</h1>
     </div>
     <v-row>
       <v-col cols="12">
