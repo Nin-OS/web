@@ -12,21 +12,21 @@
           <span class="font-weight-light">({{ pkg["Version"] }})</span>
         </v-card-title>
         <v-card-text>
+          <template v-for="row in pkgargs" :key="row.arg">
+            <v-row>
+              <v-col cols="4" lg="6"
+                >{{ row.desc ? row.desc : row.arg }}:</v-col
+              >
+              <v-col cols="8" lg="6">{{
+                row.arg == "Packager"
+                  ? pkg[row.arg].split(" ")[0]
+                  : pkg[row.arg]
+              }}</v-col>
+            </v-row>
+          </template>
           <v-row>
-            <v-col cols="4" md="6">Repository:</v-col>
-            <v-col cols="8" md="6">{{ pkg["Repository"] }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" md="6">Description:</v-col>
-            <v-col cols="8" md="6">{{ pkg["Description"] }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" md="6">Upstream URL:</v-col>
-            <v-col cols="8" md="6">{{ pkg["URL"] }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" md="6">License(s):</v-col>
-            <v-col cols="8" md="6">
+            <v-col cols="4" lg="6">License(s):</v-col>
+            <v-col cols="8" lg="6">
               <template v-for="it in pkg['Licenses'].split(' ')" :key="it">
                 <a class="mr-1" v-if="it in licenses" :href="licenses[it]">
                   {{ it }}</a
@@ -36,18 +36,6 @@
                 </span>
               </template>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" md="6">Package Size:</v-col>
-            <v-col cols="8" md="6">{{ pkg["Download Size"] }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" md="6">Installed Size:</v-col>
-            <v-col cols="8" md="6">{{ pkg["Installed Size"] }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" md="6">Build Date:</v-col>
-            <v-col cols="8" md="6">{{ pkg["Build Date"] }}</v-col>
           </v-row>
         </v-card-text>
         <template
@@ -61,46 +49,16 @@
         >
           <v-divider />
           <v-card-text>
-            <v-row v-if="pkg['Depends On'] !== 'None'">
-              <v-col cols="4" md="6">Depends On:</v-col>
-              <v-col cols="8" md="6">
-                <template v-for="it in pkg['Depends On'].split(' ')" :key="it">
-                  <span class="mr-1">
-                    {{ it }}
-                  </span>
-                </template>
-              </v-col>
-            </v-row>
-            <v-row v-if="pkg['Optional Deps'] !== 'None'">
-              <v-col cols="4" md="6">Optional Deps:</v-col>
-              <v-col cols="8" md="6">{{ pkg["Optional Deps"] }}</v-col>
-            </v-row>
-            <v-row v-if="pkg['Conflicts With'] !== 'None'">
-              <v-col cols="4" md="6">Conflicts With:</v-col>
-              <v-col cols="8" md="6">{{ pkg["Conflicts With"] }}</v-col>
-            </v-row>
-            <v-row v-if="pkg['Provides'] !== 'None'">
-              <v-col cols="4" md="6">Provides:</v-col>
-              <v-col cols="8" md="6">{{ pkg["Provides"] }}</v-col>
-            </v-row>
-            <v-row v-if="pkg['Replaces'] !== 'None'">
-              <v-col cols="4" md="6">Replaces:</v-col>
-              <v-col cols="8" md="6">{{ pkg["Replaces"] }}</v-col>
-            </v-row>
+            <template v-for="row in pkgargs_rel" :key="row.arg">
+              <v-row v-if="pkg[row.arg] !== 'None'">
+                <v-col cols="4" lg="6"
+                  >{{ row.desc ? row.desc : row.arg }}:</v-col
+                >
+                <v-col cols="8" lg="6">{{ pkg[row.arg] }}</v-col>
+              </v-row>
+            </template>
           </v-card-text>
         </template>
-        <v-divider />
-        <v-card-actions>
-          <v-btn :href="'https://github.com/eweOS/packages/tree/' + pkg['Name']"
-            ><v-icon start>mdi-github</v-icon>Source Code</v-btn
-          >
-          <v-btn
-            :href="
-              'https://os-build.ewe.moe/package/show/eweOS:Main/' + pkg['Name']
-            "
-            ><v-icon start>mdi-wrench</v-icon>OBS</v-btn
-          >
-        </v-card-actions>
       </v-card>
     </div>
   </div>
@@ -149,6 +107,48 @@ export default {
     licenses: licenses,
     loading: true,
     pkg: null,
+    pkgargs: [
+      {
+        arg: "Repository",
+      },
+      {
+        arg: "Description",
+      },
+      {
+        arg: "URL",
+        desc: "Upstream URL",
+      },
+      {
+        arg: "Download Size",
+        desc: "Package Size",
+      },
+      {
+        arg: "Installed Size",
+      },
+      {
+        arg: "Build Date",
+      },
+      {
+        arg: "Packager",
+      },
+    ],
+    pkgargs_rel: [
+      {
+        arg: "Depends On",
+      },
+      {
+        arg: "Optional Deps",
+      },
+      {
+        arg: "Conflicts With",
+      },
+      {
+        arg: "Provides",
+      },
+      {
+        arg: "Replaces",
+      },
+    ],
   }),
 };
 </script>
