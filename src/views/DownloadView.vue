@@ -45,9 +45,16 @@
             </v-list-item-subtitle>
             <template v-slot:append>
               <v-btn
-                :href="mirror.url"
+                :disabled="mirror.tags.includes('Repo Only')"
+                :href="mirror.url + '/eweos-images/'"
                 variant="text"
-                icon="mdi-download-box"
+                icon="mdi-download-circle"
+              ></v-btn>
+              <v-btn
+                :disabled="mirror.tags.includes('Images Only')"
+                :href="mirror.url + '/eweos/'"
+                variant="text"
+                icon="mdi-package-down"
               ></v-btn>
             </template>
           </v-list-item>

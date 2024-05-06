@@ -2,25 +2,31 @@
   {
     "id": "eweos",
     "name": "eweOS Official Repository",
-    "url": "https://os-repo.ewe.moe/eweos-images/",
+    "url": "https://os-repo.ewe.moe",
     "tags": ["Official"]
   },
   {
     "id": "eweos-bak",
     "name": "eweOS Official Repository (Europe)",
-    "url": "https://os-repo-bak.ewe.moe/eweos-images/",
+    "url": "https://os-repo-bak.ewe.moe",
     "tags": ["Official", "Backup"]
   },
   {
     "id": "eweos-dn42",
     "name": "eweOS Official Repository (DN42)",
-    "url": "http://repo.nia.dn42/eweos-images/",
+    "url": "http://repo.nia.dn42",
     "tags": ["Official", "Limited Access"]
   },
   {
     "id": "eweos-cloudflare",
     "name": "eweOS Cloudflare R2 Repository (Images Only)",
-    "url": "https://os-repo-cloudflare.ewe.moe/eweos-images/",
+    "url": "https://os-repo-cloudflare.ewe.moe",
     "tags": ["Official", "Images Only"]
+  },
+  {
+    "id": "wsyu",
+    "name": "Wuchang Shouyi University",
+    "url": "https://mirrors.wsyu.edu.cn",
+    "tags": ["Repo Only"]
   }
 ]
