@@ -14,12 +14,13 @@
       Deprecated
     </v-chip>
   </v-chip-group>
-  <VDataTable
+  <VDataTableVirtual
+    sticky
     :headers="headers"
     :items="pkglist"
     :search="filterkey"
     :custom-filter="filteritems"
-    :items-per-page="100"
+    :height="height"
   >
     <template v-slot:[`item.pkgname`]="{ item }">
       <v-chip
@@ -81,7 +82,7 @@
         </template>
       </v-tooltip>
     </template>
-  </VDataTable>
+  </VDataTableVirtual>
 </template>
 
 <script>
@@ -146,6 +147,7 @@ export default {
   },
   data: () => ({
     moment: moment,
+    height: window.innerHeight,
     headers: [
       {
         title: "Source Name",

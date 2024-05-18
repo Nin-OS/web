@@ -17,7 +17,7 @@
     "vue": "^3.4.26",
     "vue-router": "^4.3.2",
     "vue3-markdown-it": "^1.0.10",
-    "vuetify": "^3.6.1",
+    "vuetify": "^3.6.6",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {

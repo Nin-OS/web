@@ -1,5 +1,10 @@
 <template>
-  <VDataTable :headers="headers" :items="merged_pkglist" :items-per-page="100">
+  <VDataTableVirtual
+    sticky
+    :headers="headers"
+    :items="merged_pkglist"
+    :height="height"
+  >
     <template v-slot:[`item.pkgname`]="{ item }">
       <v-chip
         variant="text"
@@ -53,7 +58,7 @@
         }}
       </v-chip>
     </template>
-  </VDataTable>
+  </VDataTableVirtual>
 </template>
 
 <script>
@@ -125,6 +130,7 @@ export default {
     },
   },
   data: () => ({
+    height: window.innerHeight,
     moment: moment,
     archorder: {
       x86_64: 1,

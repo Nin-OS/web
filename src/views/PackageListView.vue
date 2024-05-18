@@ -1,7 +1,31 @@
 <template>
   <v-tabs v-model="tab" grow>
-    <v-tab value="version"> <v-icon icon="mdi-list-box" start /> Versions </v-tab>
-    <v-tab value="upgrade"> <v-icon icon="mdi-alert-decagram" start /> Upgrades </v-tab>
+    <v-tab value="version">
+      <v-icon icon="mdi-list-box" start />
+      Versions
+      <v-chip
+        class="ma-2"
+        label
+        size="small"
+        density="comfortable"
+        v-if="Object.values(loading.version).indexOf(true) == -1"
+      >
+        {{ Object.values(pkgverlist).reduce((a, b) => (a.length || 0) + (b.length || 0), 0) }}
+      </v-chip>
+    </v-tab>
+    <v-tab value="upgrade">
+      <v-icon icon="mdi-alert-decagram" start />
+      Upgrades
+      <v-chip
+        class="ma-2"
+        label
+        size="small"
+        density="comfortable"
+        v-if="!loading.update"
+      >
+        {{ pkgupdatelist.length }}
+      </v-chip>
+    </v-tab>
   </v-tabs>
   <v-window v-model="tab">
     <v-window-item value="version">
