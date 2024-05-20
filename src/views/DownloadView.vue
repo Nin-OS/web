@@ -46,13 +46,15 @@
             <template v-slot:append>
               <v-btn
                 :disabled="mirror.tags.includes('Repo Only')"
-                :href="mirror.url + '/eweos-images/'"
+                :href="
+                  mirror.nolistdir ? mirror.url : mirror.url + '/eweos-images/'
+                "
                 variant="text"
                 icon="mdi-download-circle"
               ></v-btn>
               <v-btn
                 :disabled="mirror.tags.includes('Images Only')"
-                :href="mirror.url + '/eweos/'"
+                :href="mirror.nolistdir ? mirror.url : mirror.url + '/eweos/'"
                 variant="text"
                 icon="mdi-package-down"
               ></v-btn>

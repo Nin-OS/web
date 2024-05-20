@@ -24,6 +24,13 @@
     "tags": ["Official", "Images Only"]
   },
   {
+    "id": "eweos-oracle",
+    "name": "eweOS Oracle Object Storage Repository (Images Only)",
+    "url": "https://os-repo-oracle.ewe.moe",
+    "tags": ["Official", "Images Only"],
+    "nolistdir": true
+  },
+  {
     "id": "wsyu",
     "name": "Wuchang Shouyi University",
     "url": "https://mirrors.wsyu.edu.cn",
