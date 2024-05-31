@@ -1,0 +1,45 @@
+[
+    {
+      "title": "Home",
+      "type": "internal",
+      "icon": "home",
+      "target": "/"
+    },
+    {
+      "title": "Download",
+      "type": "internal",
+      "icon": "download",
+      "target": "/download"
+    },
+    {
+      "title": "Develop",
+      "type": "internal",
+      "icon": "cog",
+      "target": "/develop"
+    },
+    {
+      "title": "Packages",
+      "type": "internal",
+      "icon": "package",
+      "target": "/packages"
+    },
+    {
+      "title": "Blog",
+      "type": "internal",
+      "icon": "newspaper-variant",
+      "target": "/blog"
+    },
+    {
+      "title": "Wiki",
+      "type": "external",
+      "icon": "book-open-page-variant",
+      "target": "https://os-wiki.ewe.moe"
+    },
+    {
+      "title": "About",
+      "type": "internal",
+      "icon": "information",
+      "target": "/about"
+    }
+  ]
+  

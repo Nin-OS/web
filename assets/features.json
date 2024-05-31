@@ -1,0 +1,62 @@
+[
+  {
+    "pkg": "pacman",
+    "desc": "as package manager",
+    "link": "https://gitlab.archlinux.org/pacman/pacman"
+  },
+  {
+    "pkg": "musl",
+    "desc": "as C library",
+    "link": "https://musl.libc.org/"
+  },
+  {
+    "pkg": "libc++",
+    "desc": "as C++ library",
+    "link": "https://libcxx.llvm.org/"
+  },
+  {
+    "pkg": "clang",
+    "desc": "as C compiler",
+    "link": "https://clang.llvm.org/"
+  },
+  {
+    "pkg": "busybox",
+    "desc": "as core utils",
+    "link": "https://busybox.net/"
+  },
+  {
+    "pkg": "dinit",
+    "desc": "as init system",
+    "link": "https://github.com/davmac314/dinit"
+  },
+  {
+    "pkg": "mold",
+    "desc": "as default linker",
+    "link": "https://github.com/rui314/mold"
+  },
+  {
+    "pkg": "mimalloc",
+    "desc": "as allocator",
+    "link": "https://microsoft.github.io/mimalloc/"
+  },
+  {
+    "pkg": "wayland",
+    "desc": "as display protocol",
+    "link": "https://wayland.freedesktop.org/"
+  },
+  {
+    "pkg": "tinyramfs",
+    "desc": "as initramfs generator",
+    "link": "https://github.com/illiliti/tinyramfs"
+  },
+  {
+    "pkg": "LTO",
+    "desc": "enabled by default",
+    "link": null
+  },
+  {
+    "pkg": "limine",
+    "desc": "as default bootloader",
+    "link": "https://limine-bootloader.org/"
+  }
+]
