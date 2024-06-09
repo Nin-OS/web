@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     "nuxt-schema-org",
     "nuxt-seo-experiments",
     "nuxt-route-meta",
+    "nuxt-og-image",
     [
       "nuxt-content-git",
       {
@@ -35,6 +36,17 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  ogImage: {
+    fonts: [
+      // will load the Noto Sans font from Google fonts
+      "Roboto:100",
+      "Roboto:300",
+      "Roboto:400",
+      "Roboto:500",
+      "Roboto:700",
+      "Roboto:900",
+    ],
+  },
   routeRules: {
     "/blog/6": { redirect: "/blog/202405-progress-report" },
     "/blog/5": { redirect: "/blog/202404-progress-report" },

@@ -22,6 +22,7 @@
     "moment": "^2.30.1",
     "nuxt": "^3.11.2",
     "nuxt-content-git": "^4.0.1",
+    "nuxt-og-image": "^3.0.0-rc.53",
     "nuxt-route-meta": "^5.0.1",
     "nuxt-schema-org": "^3.3.6",
     "nuxt-seo-experiments": "^4.0.0-rc.8",

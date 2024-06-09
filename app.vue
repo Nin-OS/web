@@ -38,4 +38,5 @@ useSeoMeta({
   ogType: "website",
   ogSiteName: "eweOS",
 });
+defineOgImageComponent("Global");
 </script>

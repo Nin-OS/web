@@ -4,7 +4,7 @@
       <v-avatar class="mr-1">
         <v-img src="~/assets/logo.svg" />
       </v-avatar>
-      <b>eweOS </b> | {{ $route.meta.title || $route.name || "Error" }}
+      <b>ewe</b>OS | {{ $route.meta.title || $route.name || "Error" }}
     </v-app-bar-title>
     <v-app-bar-title class="hidden-md-and-up">
       <v-avatar class="mr-1">
