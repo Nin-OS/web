@@ -66,9 +66,11 @@
 import licenses from "~/assets/licenses.json";
 const route = useRoute();
 
+const repo = route.params.repo || "main";
+
 setPageMeta({
   title: "Package Info",
-  description: `Package info for ${route.params.pkg} (${route.params.repo})`,
+  description: `Package info for ${route.params.pkg} (${repo})`,
 });
 definePageMeta({ title: "Package Info" });
 
@@ -131,7 +133,7 @@ await $fetch(
   "https://raw.githubusercontent.com/eweOS/workflow/pkginfo-" +
     (route.params.arch || "x86_64") +
     "/" +
-    route.params.repo +
+    repo +
     "/" +
     route.params.pkg +
     ".json"

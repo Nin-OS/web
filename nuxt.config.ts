@@ -95,8 +95,12 @@ export default defineNuxtConfig({
     identity: {
       type: "Organization",
       name: "eweOS",
+      description:
+        "An musl-based, lightweight, general-purpose Linux distribution",
       url: "https://os.ewe.moe",
       logo: "https://os.ewe.moe/icon.png",
+      sameAs: ["https://github.com/eweOS", "https://t.me/eweos"],
+      foundingDate: "2022-08-31",
     },
   },
 });

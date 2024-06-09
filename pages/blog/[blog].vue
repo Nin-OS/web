@@ -22,6 +22,17 @@ setPageMeta({
   description: data.description || "blog post for eweOS",
   ogType: "article",
 });
+
+useSchemaOrg([
+  {
+    "@type": "BlogPosting",
+    headline: data.title || "Blog Post",
+    description: data.description || "blog post for eweOS",
+    dateModified: data.date,
+    datePublished: data.date_created,
+    author: [{ name: data.author }],
+  },
+]);
 </script>
 
 <template>

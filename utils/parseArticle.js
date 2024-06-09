@@ -11,6 +11,7 @@ export default function (articles) {
       articles.gitUpdatedAt ||
       articles.gitCreatedAt ||
       "not-date-available",
+    date_created: articles.gitCreatedAt || "not-date-available",
     tags: articles.tags || [],
     author: articles.author || "eweOS Developers",
     published: articles.published || false,
