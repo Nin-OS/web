@@ -22,18 +22,26 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
+
 setPageMeta({
   title: "Home",
 });
 definePageMeta({ title: "Home" });
 
-const updated_data = await $fetch(
-  "https://ewe-obs-trigger.nia.workers.dev/update"
-);
+const updated_data = ref(null);
+
+async function init_update_data() {
+  updated_data.value = await $fetch(
+    "https://ewe-obs-trigger.nia.workers.dev/update"
+  );
+}
+
+onMounted(init_update_data);
 
 const updated_date = computed(() =>
-  updated_data
-    ? new Date(parseInt(updated_data.updated_date)).toLocaleDateString()
+  updated_data.value
+    ? new Date(parseInt(updated_data.value.updated_date)).toLocaleDateString()
     : "Unknown"
 );
 </script>
