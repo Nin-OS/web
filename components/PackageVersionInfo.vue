@@ -4,6 +4,7 @@
     :headers="headers"
     :items="merged_pkglist"
     :height="height"
+    fixed-header
   >
     <template v-slot:[`item.pkgname`]="{ item }">
       <v-chip

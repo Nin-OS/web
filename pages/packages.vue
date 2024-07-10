@@ -34,23 +34,26 @@
         </v-chip>
       </v-tab>
     </v-tabs>
-    <v-window v-model="tab">
-      <v-window-item value="version">
+    <v-tabs-window v-model="tab">
+      <v-tabs-window-item value="version">
         <PackageVersionInfo
-          v-if="Object.values(loading.version).indexOf(false) > -1"
+          v-if="
+            Object.values(loading.version).indexOf(false) > -1 &&
+            tab == 'version'
+          "
           :pkglist="pkgverlist"
         />
         <LoadingBar v-else />
-      </v-window-item>
-      <v-window-item value="upgrade">
+      </v-tabs-window-item>
+      <v-tabs-window-item value="upgrade">
         <PackageUpdateInfo
-          v-if="!loading.update"
+          v-if="!loading.update && tab == 'upgrade'"
           :pkglist="pkgupdatelist"
           :pkgerrlist="pkgupdateerrlist"
         />
         <LoadingBar v-else />
-      </v-window-item>
-    </v-window>
+      </v-tabs-window-item>
+    </v-tabs-window>
     <template #fallback>
       <LoadingBar />
     </template>
