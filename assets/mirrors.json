@@ -3,7 +3,7 @@
     "id": "eweos-lu",
     "name": "eweOS Official Repo (Luxembourg, EU)",
     "url": "https://os-repo-lu.ewe.moe",
-    "tags": ["Official"],
+    "tags": ["Official", "With Snapshots"],
     "traffic_stats": {
       "type": "vnstati",
       "url": "https://os-repo-stats-lu.ewe.moe"
