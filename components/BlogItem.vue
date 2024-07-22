@@ -18,7 +18,7 @@
   </v-card>
 </template>
 
-<script setup lang="ts">
+<script setup>
 const props = defineProps({
   post: { type: JSON, required: true },
 });

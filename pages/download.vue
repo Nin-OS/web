@@ -23,65 +23,12 @@
           aarch64, riscv64 (WIP)
         </p>
       </v-alert>
-      <h2 class="mt-2">Weekly Builds - From Available Mirrors</h2>
+
+      <h2 class="mt-2">Community Mirrors</h2>
       <v-list two-lines>
         <v-divider />
         <template v-for="mirror in mirrors" :key="mirror.id">
-          <v-list-item>
-            <v-list-item-title>
-              {{ mirror.name }}
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <v-chip
-                class="mr-2"
-                v-for="tag in mirror.tags"
-                :key="tag"
-                outlined
-                size="x-small"
-                variant="outlined"
-                label
-                >{{ tag }}</v-chip
-              >
-            </v-list-item-subtitle>
-            <template v-slot:append>
-              <template v-if="mirror.traffic_stats">
-                <mirror-traffic-stats-vnstati-dialog
-                  v-if="mirror.traffic_stats.type === 'vnstati'"
-                  :mirror="mirror"
-                />
-              </template>
-              <v-tooltip text="Browse Images" location="bottom">
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    :disabled="mirror.tags.includes('Repo Only')"
-                    :href="
-                      mirror.nolistdir
-                        ? mirror.url
-                        : mirror.url + '/eweos-images/'
-                    "
-                    variant="text"
-                    icon="mdi-download-circle"
-                    v-bind="props"
-                    class="hidden-sm-and-down"
-                  ></v-btn>
-                </template>
-              </v-tooltip>
-              <v-tooltip text="Browse Repository" location="bottom">
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    :disabled="mirror.tags.includes('Images Only')"
-                    :href="
-                      mirror.nolistdir ? mirror.url : mirror.url + '/eweos/'
-                    "
-                    variant="text"
-                    class="hidden-sm-and-down"
-                    icon="mdi-package-down"
-                    v-bind="props"
-                  ></v-btn>
-                </template>
-              </v-tooltip>
-            </template>
-          </v-list-item>
+          <mirror-item :mirror="mirror" />
           <v-divider />
         </template>
         <v-list-item disabled>
@@ -92,11 +39,21 @@
         </v-list-item>
         <v-divider />
       </v-list>
-      <h2 class="mt-2">Daily Builds - From GitHub Actions</h2>
+
+      <h2 class="mt-2">Official Mirrors</h2>
+      <v-list two-lines>
+        <v-divider />
+        <template v-for="mirror in official_mirrors" :key="mirror.id">
+          <mirror-item :mirror="mirror" />
+          <v-divider />
+        </template>
+      </v-list>
+
+      <h2 class="mt-2">GitHub Workflows</h2>
       <v-list two-lines>
         <v-divider />
         <v-list-item>
-          <v-list-item-title> Github Actions </v-list-item-title>
+          <v-list-item-title> Image Creation </v-list-item-title>
           <v-list-item-subtitle>
             <v-chip
               class="mr-2"
@@ -123,19 +80,14 @@
             <v-btn
               href="https://github.com/eweOS/iso/actions/workflows/publish_iso.yml"
               variant="text"
-              icon="mdi-download-box"
+              icon="mdi-cog-box"
             ></v-btn>
           </template>
         </v-list-item>
         <v-divider />
-      </v-list>
-
-      <h2 class="mt-2">Docker Images</h2>
-      <v-list two-lines>
-        <v-divider />
         <v-list-item>
           <v-list-item-title>
-            <code>ghcr.io/eweos/docker</code>
+            Docker Image (<code>ghcr.io/eweos/docker</code>)
           </v-list-item-title>
           <v-list-item-subtitle>
             <v-chip
@@ -182,6 +134,7 @@
 
 <script setup lang="ts">
 import mirrors from "~/assets/mirrors.json";
+import official_mirrors from "~/assets/official_mirrors.json";
 
 setPageMeta({
   title: "Download",

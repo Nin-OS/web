@@ -1,0 +1,41 @@
+[
+  {
+    "id": "eweos-lu",
+    "name": "eweOS Official Repo (Luxembourg, EU)",
+    "url": "https://os-repo-lu.ewe.moe",
+    "tags": ["Official", "With Snapshots"],
+    "traffic_stats": {
+      "type": "vnstati",
+      "url": "https://os-repo-stats-lu.ewe.moe"
+    }
+  },
+  {
+    "id": "eweos-cn",
+    "name": "eweOS Official Repo (China)",
+    "url": "https://os-repo-cn.ewe.moe",
+    "tags": ["Official", "Proxied"],
+    "traffic_stats": {
+      "type": "vnstati",
+      "url": "https://os-repo-stats-cn.ewe.moe"
+    }
+  },
+  {
+    "id": "eweos-dn42",
+    "name": "eweOS Official Repo (DN42)",
+    "url": "http://repo.nia.dn42",
+    "tags": ["Official", "Limited Access"]
+  },
+  {
+    "id": "eweos-cloudflare",
+    "name": "eweOS Cloudflare R2 Repo (Global)",
+    "url": "https://os-repo-cloudflare.ewe.moe",
+    "tags": ["Official", "Images Only"]
+  },
+  {
+    "id": "eweos-oracle",
+    "name": "eweOS Oracle Object Storage Repo (Global)",
+    "url": "https://os-repo-oracle.ewe.moe",
+    "tags": ["Official", "Images Only"],
+    "nolistdir": true
+  }
+]
