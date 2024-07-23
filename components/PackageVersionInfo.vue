@@ -115,7 +115,7 @@ export default {
     headers() {
       let ret = [
         {
-          title: "Source Name",
+          title: "Package Name",
           key: "pkgname",
           sortable: false,
         },

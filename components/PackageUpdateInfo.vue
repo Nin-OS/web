@@ -1,14 +1,40 @@
 <template>
-  <v-chip-group
-    class="my-2"
-    v-model="filterkey"
-    selected-class="text-primary"
-    column
-  >
-    <v-chip color="warning" value="available"> Update Available </v-chip>
-    <v-chip color="error" value="failed"> Check Failed </v-chip>
-    <v-chip color="primary" value="unconfigured"> Unconfigured </v-chip>
-  </v-chip-group>
+  <v-row>
+    <v-col cols="12" md="6">
+      <v-card-text>
+        <v-btn-toggle
+          v-model="filterkey"
+          group
+          variant="tonal"
+          density="compact"
+        >
+          <v-btn color="warning" value="group:available" size="small">
+            Update Available
+          </v-btn>
+          <v-btn color="error" value="group:failed" size="small">
+            Check Failed
+          </v-btn>
+          <v-btn color="primary" value="group:unconfigured" size="small">
+            Unconfigured
+          </v-btn>
+        </v-btn-toggle>
+      </v-card-text>
+    </v-col>
+    <v-col cols="12" md="6">
+      <v-card-text>
+        <v-text-field
+          v-model="filterkey"
+          label="Search"
+          prepend-inner-icon="mdi-magnify"
+          variant="outlined"
+          density="compact"
+          hide-details
+          single-line
+        ></v-text-field>
+      </v-card-text>
+    </v-col>
+  </v-row>
+
   <VDataTableVirtual
     sticky
     :headers="headers"
@@ -58,17 +84,17 @@ export default {
     filteritems(_, query, rawvalue) {
       const value = rawvalue.columns;
       switch (query) {
-        case "available": {
+        case "group:available": {
           return value.status == "outofdate";
         }
-        case "failed": {
+        case "group:failed": {
           return value.status == "failed";
         }
-        case "unconfigured": {
+        case "group:unconfigured": {
           return value.status == "unconfigured";
         }
         default:
-          return true;
+          return value.name.toLowerCase().search(query.toLowerCase());
       }
     },
   },
@@ -93,7 +119,7 @@ export default {
     },
     headers: [
       {
-        title: "Source Name",
+        title: "Package Name",
         key: "name",
       },
       {
