@@ -49,7 +49,6 @@
         <PackageUpdateInfo
           v-if="!loading.update && tab == 'upgrade'"
           :pkglist="pkgupdatelist"
-          :pkgerrlist="pkgupdateerrlist"
         />
         <LoadingBar v-else />
       </v-tabs-window-item>
@@ -74,9 +73,6 @@ export default {
   },
   created() {
     this.fetch_update();
-    this.fetch_noupdate();
-    this.fetch_failed();
-    this.fetch_deprecated();
     Object.keys(this.loading.version).forEach((arch) => {
       this.fetch_arch(arch);
     });
@@ -84,40 +80,19 @@ export default {
   methods: {
     fetch_update() {
       this.loading.update = true;
-      axios.get(this.repourl + "/updatecheck/result.json").then((resp) => {
-        for (const pkg of Object.keys(resp.data.compare)) {
-          this.pkgupdatelist.push({
-            pkgname: pkg,
-            pkgdata: {
-              update_date: resp.data.compare[pkg],
-              update_version: resp.data.upstream[pkg].version,
-              update_timestamp: resp.data.upstream[pkg].epoch,
-              version: resp.data.downstream[pkg].version,
-              timestamp: resp.data.downstream[pkg].epoch,
-            },
-          });
-        }
+      axios.get(this.repourl + "/updatecheck/results.json").then((resp) => {
+        this.pkgupdatelist = resp.data;
         this.loading.update = false;
-      });
-    },
-    fetch_noupdate() {
-      axios.get(this.repourl + "/updatecheck/nodata.json").then((resp) => {
-        resp.data.forEach((pkg) => {
-          this.pkgupdatelist.push({
-            pkgname: pkg,
-            pkgdata: null,
+        axios
+          .get(this.repourl + "/updatecheck/unconfigured.json")
+          .then((resp) => {
+            resp.data.forEach((pkg) => {
+              this.pkgupdatelist.push({
+                name: pkg,
+                status: "unconfigured",
+              });
+            });
           });
-        });
-      });
-    },
-    fetch_failed() {
-      axios.get(this.repourl + "/updatecheck/failed.json").then((resp) => {
-        this.pkgupdateerrlist.failed = resp.data.concat();
-      });
-    },
-    fetch_deprecated() {
-      axios.get(this.repourl + "/updatecheck/deprecated.json").then((resp) => {
-        this.pkgupdateerrlist.deprecated = resp.data.concat();
       });
     },
     fetch_arch(arch) {
@@ -144,10 +119,6 @@ export default {
       },
     },
     pkgupdatelist: [],
-    pkgupdateerrlist: {
-      failed: [],
-      deprecated: [],
-    },
     pkgverlist: {},
     tab: "version",
     repourl: "https://raw.githubusercontent.com/eweOS/workflow",

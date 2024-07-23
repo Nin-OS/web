@@ -6,13 +6,8 @@
     column
   >
     <v-chip color="warning" value="available"> Update Available </v-chip>
-    <v-chip value="none"> Check Not Configured </v-chip>
-    <v-chip color="error" value="failed" v-if="pkgerrlist.failed.length">
-      Check Failed
-    </v-chip>
-    <v-chip value="deprecated" v-if="pkgerrlist.deprecated.length">
-      Deprecated
-    </v-chip>
+    <v-chip color="error" value="failed"> Check Failed </v-chip>
+    <v-chip color="primary" value="unconfigured"> Unconfigured </v-chip>
   </v-chip-group>
   <VDataTableVirtual
     sticky
@@ -23,65 +18,23 @@
     :height="height"
     fixed-header
   >
-    <template v-slot:[`item.pkgname`]="{ item }">
+    <template v-slot:[`item.name`]="{ item }">
       <v-chip
-        :href="'https://github.com/eweOS/packages/tree/' + item.pkgname"
         class="mx-1 my-1"
         variant="text"
         size="large"
+        :to="'/pkginfo/main/' + item.name"
       >
-        {{ item.pkgname }}
+        {{ item.name }}
       </v-chip>
     </template>
-    <template v-slot:[`item.pkgdata`]="{ item }">
-      <template v-if="!item.pkgdata">
-        <v-chip prepend-icon="mdi-minus-circle-outline" color="grey">
-          No data
-        </v-chip>
-      </template>
-      <v-tooltip
-        v-else
-        :disabled="!item.pkgdata.update_date"
-        location="bottom"
-        :text="
-          'Checked: ' +
-          (item.pkgdata.update_date
-            ? moment.unix(item.pkgdata.update_date).fromNow()
-            : 'Unknown')
-        "
+    <template v-slot:[`item.status`]="{ item }">
+      <v-chip
+        :prepend-icon="(resultmap[item.status] || resultmap['unknown']).icon"
+        :color="(resultmap[item.status] || resultmap['unknown']).color"
       >
-        <template v-slot:activator="{ props }">
-          <v-chip
-            v-bind="props"
-            prepend-icon="mdi-minus-circle-outline"
-            v-if="this.pkgerrlist.deprecated.includes(item.pkgname)"
-            color="default"
-          >
-            Deprecated
-          </v-chip>
-          <v-chip
-            v-bind="props"
-            prepend-icon="mdi-alert-outline"
-            v-else-if="this.pkgerrlist.failed.includes(item.pkgname)"
-            color="error"
-          >
-            Failed
-          </v-chip>
-          <v-chip
-            v-else
-            v-bind="props"
-            :prepend-icon="icon_update(item.pkgdata)"
-            :color="color_update(item.pkgdata)"
-          >
-            {{
-              item.pkgdata.update_version ||
-              !this.pkgerrlist.failed.includes(item.pkgname)
-                ? fmtstr(item.pkgdata.version, item.pkgdata.update_version)
-                : item.pkgdata.version || "Unavailable"
-            }}
-          </v-chip>
-        </template>
-      </v-tooltip>
+        {{ item.status == "outofdate" ? fmtver_cmp(item) : fmtver(item) }}
+      </v-chip>
     </template>
   </VDataTableVirtual>
 </template>
@@ -90,75 +43,62 @@
 import moment from "moment";
 
 export default {
-  props: ["pkglist", "pkgerrlist"],
+  props: ["pkglist"],
   methods: {
-    fmtstr(a, b) {
-      if (this.comparever(a, b)) {
-        return a + " -> " + b;
-      } else {
-        return a;
-      }
+    fmtver(pkg, ver = "downstream") {
+      if (!pkg[ver]) return "Unknown";
+      return pkg[ver].join(".");
     },
-    comparever(a, b) {
-      if (a === b) return 0;
-      return a < b;
-    },
-    icon_update(d) {
-      if (!d.update_version) return "mdi-help-circle-outline";
-      if (d.update_version == d.version) return "mdi-check-circle-outline";
-      if (!this.comparever(d.version, d.update_version))
-        return "mdi-check-circle-outline";
-      else return "mdi-update";
-    },
-    color_update(d) {
-      if (!this.comparever(d.version, d.update_version)) return "grey";
-      else return "warning";
+    fmtver_cmp(pkg) {
+      return `${this.fmtver(pkg, "downstream")} --> ${this.fmtver(
+        pkg,
+        "upstream"
+      )}`;
     },
     filteritems(_, query, rawvalue) {
       const value = rawvalue.columns;
       switch (query) {
         case "available": {
-          if (!value.pkgdata) return false;
-          if (this.pkgerrlist.failed.includes(value.pkgname)) return false;
-          if (this.pkgerrlist.deprecated.includes(value.pkgname)) return false;
-          if (!value.pkgdata.update_version || !value.pkgdata.version)
-            return false;
-          if (
-            !this.comparever(
-              value.pkgdata.version,
-              value.pkgdata.update_version
-            )
-          )
-            return false;
-          return true;
-        }
-        case "none": {
-          return !value.pkgdata;
+          return value.status == "outofdate";
         }
         case "failed": {
-          return this.pkgerrlist.failed.includes(value.pkgname);
+          return value.status == "failed";
         }
-        case "deprecated": {
-          return this.pkgerrlist.deprecated.includes(value.pkgname);
+        case "unconfigured": {
+          return value.status == "unconfigured";
         }
         default:
-          return !this.pkgerrlist.deprecated.includes(value.pkgname);
+          return true;
       }
     },
   },
   data: () => ({
     moment: moment,
     height: window.innerHeight,
+    resultmap: {
+      ok: {
+        color: "grey",
+        icon: "mdi-check-circle-outline",
+      },
+      outofdate: { color: "warning", icon: "mdi-update" },
+      failed: { color: "error", icon: "mdi-alert-outline" },
+      unconfigured: {
+        color: "grey",
+        icon: "mdi-minus-circle-outline",
+      },
+      unknown: {
+        color: "default",
+        icon: "mdi-help-circle-outline",
+      },
+    },
     headers: [
       {
         title: "Source Name",
-        key: "pkgname",
-        filterable: false,
+        key: "name",
       },
       {
         title: "Update Status",
-        key: "pkgdata",
-        sortable: false,
+        key: "status",
       },
     ],
     filterkey: null,
