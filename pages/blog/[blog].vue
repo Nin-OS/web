@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import "github-markdown-css/github-markdown-light.css";
+
 definePageMeta({ title: "Blog Post" });
 
 const { params } = useRoute();
@@ -52,7 +54,7 @@ useSchemaOrg([
       <v-divider />
       <v-card-text class="mt-2">
         <ContentRendererMarkdown
-          class="mdshow"
+          class="mdshow markdown-body"
           :value="articles"
           v-if="articles"
         />
@@ -61,7 +63,7 @@ useSchemaOrg([
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .mdshow * {
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;

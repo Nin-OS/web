@@ -25,6 +25,12 @@ a:not([class*="v"])::before {
   font-family: "Material Design Icons";
   content: "\F0339 ";
 }
+a:not([class*="v"]) {
+  text-decoration: none;
+}
+a:not([class*="v"]):hover {
+  text-decoration: underline;
+}
 </style>
 
 <script setup lang="ts">
