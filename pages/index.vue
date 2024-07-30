@@ -13,35 +13,13 @@
           Download
         </v-btn>
       </div>
-      <p class="text-caption text-disabled">
-        Latest Updated:
-        {{ updated_date }}
-      </p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-
 setPageMeta({
   title: "Home",
 });
 definePageMeta({ title: "Home" });
-
-const updated_data = ref(null);
-
-async function init_update_data() {
-  updated_data.value = await $fetch(
-    "https://ewe-obs-trigger.nia.workers.dev/update"
-  );
-}
-
-onMounted(init_update_data);
-
-const updated_date = computed(() =>
-  updated_data.value
-    ? new Date(parseInt(updated_data.value.updated_date)).toLocaleDateString()
-    : "Unknown"
-);
 </script>
