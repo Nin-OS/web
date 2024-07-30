@@ -14,7 +14,7 @@ date: 2024-07-01
 
 ## Package Highlights
 
-> 163 PRs merged in total during May 2024. See a full list [here](https://github.com/eweOS/packages/pulls?q=is:pr+merged:2024-06-01..2024-06-30+).
+> 163 PRs merged in total during June 2024. See a full list [here](https://github.com/eweOS/packages/pulls?q=is:pr+merged:2024-06-01..2024-06-30+).
 
 ### Kernel
 
