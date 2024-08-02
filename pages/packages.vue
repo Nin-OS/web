@@ -10,14 +10,9 @@
           label
           size="small"
           density="comfortable"
-          v-if="Object.values(loading.version).indexOf(true) == -1"
+          v-if="!loading.version"
         >
-          {{
-            Object.values(pkgverlist).reduce(
-              (a, b) => (a.length || 0) + (b.length || 0),
-              0
-            )
-          }}
+          {{ pkgverlist.length }}
         </v-chip>
       </v-tab>
       <v-tab value="upgrade">
@@ -37,10 +32,7 @@
     <v-tabs-window v-model="tab">
       <v-tabs-window-item value="version">
         <PackageVersionInfo
-          v-if="
-            Object.values(loading.version).indexOf(false) > -1 &&
-            tab == 'version'
-          "
+          v-if="!loading.version && tab == 'version'"
           :pkglist="pkgverlist"
         />
         <LoadingBar v-else />
@@ -73,9 +65,7 @@ export default {
   },
   created() {
     this.fetch_update();
-    Object.keys(this.loading.version).forEach((arch) => {
-      this.fetch_arch(arch);
-    });
+    this.fetch_info();
   },
   methods: {
     fetch_update() {
@@ -95,31 +85,27 @@ export default {
           });
       });
     },
-    fetch_arch(arch) {
-      this.loading.version[arch] = true;
+    fetch_info() {
+      this.loading.version = true;
       axios
-        .get(this.repourl + "/pkginfo-" + arch + "/_pkgs_brief.json")
+        .get(this.repourl + "/pkginfo/pkginfo.json")
         .then((resp) => {
-          this.pkgverlist[arch] = resp.data;
-          this.loading.version[arch] = false;
+          this.pkgverlist = resp.data;
+          this.loading.version = false;
         })
         .catch(() => {
-          this.pkgverlist[arch] = [];
-          this.loading.version[arch] = false;
+          this.pkgverlist = [];
+          this.loading.version = false;
         });
     },
   },
   data: () => ({
     loading: {
       update: true,
-      version: {
-        x86_64: true,
-        aarch64: true,
-        riscv64: true,
-      },
+      version: true,
     },
     pkgupdatelist: [],
-    pkgverlist: {},
+    pkgverlist: [],
     tab: "version",
     repourl: "https://raw.githubusercontent.com/eweOS/workflow",
   }),

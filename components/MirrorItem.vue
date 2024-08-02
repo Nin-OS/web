@@ -48,7 +48,7 @@ const props = defineProps({
             :disabled="mirror.tags.includes('Images Only')"
             :href="mirror.nolistdir ? mirror.url : mirror.url + '/eweos/'"
             variant="text"
-            class="hidden-sm-and-down"
+            class="hidden-xs"
             icon="mdi-package"
             v-bind="props"
           ></v-btn>

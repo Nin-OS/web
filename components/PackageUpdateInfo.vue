@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="mt-2">
     <v-col cols="12" md="6">
       <v-card-text>
         <v-btn-toggle
@@ -46,7 +46,7 @@
   >
     <template v-slot:[`item.name`]="{ item }">
       <v-chip
-        class="mx-1 my-1"
+        class="mx-1 my-1 font-weight-medium"
         variant="text"
         size="large"
         :to="'/pkginfo/main/' + item.name"
@@ -131,3 +131,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.v-chip {
+  user-select: text;
+}
+</style>

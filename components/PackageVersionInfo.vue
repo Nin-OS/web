@@ -1,62 +1,51 @@
 <template>
+  <v-text-field
+    class="mt-4"
+    v-model="filterkey"
+    label="Search"
+    prepend-inner-icon="mdi-magnify"
+    variant="outlined"
+    density="compact"
+    hide-details
+    single-line
+  ></v-text-field>
   <VDataTableVirtual
     sticky
     :headers="headers"
-    :items="merged_pkglist"
+    :items="pkglist"
     :height="height"
+    :search="filterkey"
     fixed-header
   >
-    <template v-slot:[`item.pkgname`]="{ item }">
+    <template v-slot:[`item.Name`]="{ item }">
       <v-chip
         variant="text"
-        :to="
-          '/pkginfo/' +
-          (item.includes('/') ? item.split('/')[0] : 'main') +
-          '/' +
-          (item.includes('/') ? item.split('/')[1] : item)
-        "
+        :to="'/pkginfo/' + item.Repository + '/' + item.Name"
       >
-        <b v-if="!item.includes('/')">
-          {{ item }}
+        <b v-if="item.Repository === 'main'">
+          {{ item.Name }}
         </b>
         <template v-else>
-          {{ item.split("/")[0] }}&nbsp; / &nbsp;
-          <b> {{ item.split("/")[1] }}</b>
+          {{ item.Repository }}&nbsp; / &nbsp;
+          <b> {{ item.Name }}</b>
         </template>
       </v-chip>
     </template>
     <template
-      v-for="arch in Object.keys(pkglist).sort((a, b) => {
-        archorder[a] > archorder[b];
-      })"
+      v-for="arch in archs"
       :key="arch"
       v-slot:[`item.pkgdata-`+arch]="{ item }"
     >
       <v-chip
-        :prepend-icon="icon_version(find_package(item, arch))"
-        class="mx-1 my-1"
-        :color="color_package(item, arch)"
-        v-if="!item.includes('/')"
+        class="mx-1 my-1 version-chip"
+        prepend-icon="mdi-package"
+        :color="is_max_ver(arch, item.Arch) ? 'success' : 'warning'"
+        v-if="item.Arch?.[arch]"
       >
-        {{
-          find_package(item, arch) ? find_package(item, arch).Version : "NULL"
-        }}
+        {{ item.Arch[arch].Version }}
       </v-chip>
-      <v-chip
-        v-else
-        :prepend-icon="
-          icon_version(
-            find_package(item.split('/')[1], arch, item.split('/')[0])
-          )
-        "
-        class="mx-1 my-1"
-        :color="color_package(item.split('/')[1], arch, item.split('/')[0])"
-      >
-        {{
-          find_package(item.split("/")[1], arch, item.split("/")[0])
-            ? find_package(item.split("/")[1], arch, item.split("/")[0]).Version
-            : "NULL"
-        }}
+      <v-chip class="mx-1 my-1" prepend-icon="mdi-null" color="grey" v-else>
+        NULL
       </v-chip>
     </template>
   </VDataTableVirtual>
@@ -78,49 +67,25 @@ export default {
         { min: null, max: null }
       );
     },
-    find_package(pkgname, arch, repo = "main") {
-      return this.pkglist[arch].find(
-        (e) => e.Name === pkgname && e.Repository === repo
-      );
-    },
-    icon_version(d) {
-      if (!d) return "mdi-null";
-      return "mdi-package";
-    },
-    color_package(pkgname, arch, repo = "main") {
-      if (!pkgname) return "grey";
-      let allver = [];
-      Object.keys(this.pkglist).forEach((farch) => {
-        let pkg = this.find_package(pkgname, farch, repo);
-        if (pkg) allver.push(pkg.Version);
-      });
-      let thispkg = this.find_package(pkgname, arch, repo);
-      if (!thispkg) return "grey";
-      if (thispkg.Version === this.maxstr(allver).max) return "success";
-      return "warning";
+    is_max_ver(arch, data) {
+      if (
+        data[arch].Version ===
+        this.maxstr(Object.values(data).map((i) => i.Version)).max
+      )
+        return true;
+      return false;
     },
   },
   computed: {
-    merged_pkglist() {
-      let ret = [];
-      Object.keys(this.pkglist).forEach((arch) => {
-        this.pkglist[arch].forEach((pkg) => {
-          if (pkg["Repository"] != "main")
-            ret.push(pkg["Repository"] + "/" + pkg["Name"]);
-          else ret.push(pkg["Name"]);
-        });
-      });
-      return [...new Set(ret)];
-    },
     headers() {
       let ret = [
         {
           title: "Package Name",
-          key: "pkgname",
-          sortable: false,
+          key: "Name",
+          sortable: true,
         },
       ];
-      Object.keys(this.pkglist).forEach((arch) => {
+      this.archs.forEach((arch) => {
         ret.push({
           title: arch + " Status",
           key: "pkgdata-" + arch,
@@ -133,17 +98,20 @@ export default {
   data: () => ({
     height: window.innerHeight,
     moment: moment,
-    archorder: {
-      x86_64: 1,
-      aarch64: 2,
-      riscv64: 3,
-    },
+    archs: ["x86_64", "aarch64", "riscv64"],
+    filterkey: null,
   }),
 };
 </script>
 
 <style scoped>
 .v-chip {
+  user-select: text;
+}
+.v-chip.version-chip {
   max-width: 150px;
+}
+.v-chip.version-chip:hover {
+  max-width: unset;
 }
 </style>
