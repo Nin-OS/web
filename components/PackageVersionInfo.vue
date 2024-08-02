@@ -41,6 +41,7 @@
         prepend-icon="mdi-package"
         :color="is_max_ver(arch, item.Arch) ? 'success' : 'warning'"
         v-if="item.Arch?.[arch]"
+        :to="'/pkginfo/' + item.Repository + '/' + item.Name + '/' + arch"
       >
         {{ item.Arch[arch].Version }}
       </v-chip>
