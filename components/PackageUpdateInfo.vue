@@ -58,11 +58,24 @@
       <v-chip
         :prepend-icon="(resultmap[item.status] || resultmap['unknown']).icon"
         :color="(resultmap[item.status] || resultmap['unknown']).color"
+        @click="
+          item.status === 'outofdate'
+            ? copycmd(item.name, item.upstream.join('.'))
+            : () => {}
+        "
       >
         {{ item.status == "outofdate" ? fmtver_cmp(item) : fmtver(item) }}
       </v-chip>
     </template>
   </VDataTableVirtual>
+  <v-snackbar v-model="snackbar">
+    Command copied!
+    <template v-slot:actions>
+      <v-btn variant="text" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script>
@@ -71,6 +84,10 @@ import moment from "moment";
 export default {
   props: ["pkglist"],
   methods: {
+    async copycmd(pkg, ver) {
+      await navigator.clipboard.writeText(`/bumpver@eweos_bot ${pkg} ${ver}`);
+      this.snackbar = true;
+    },
     fmtver(pkg, ver = "downstream") {
       if (!pkg[ver]) return "Unknown";
       return pkg[ver].join(".");
@@ -101,6 +118,7 @@ export default {
   data: () => ({
     moment: moment,
     height: window.innerHeight,
+    snackbar: false,
     resultmap: {
       ok: {
         color: "grey",
