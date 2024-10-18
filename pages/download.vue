@@ -20,8 +20,12 @@
         </p>
         <p>
           <b>Tier-1 Platforms:</b><br />
-          aarch64, riscv64 (WIP)
+          aarch64, riscv64
         </p>
+	<p>
+	  <b>Tier-2 Platforms:</b><br />
+	  loongarch64
+	</p>
       </v-alert>
 
       <h2 class="mt-2">Community Mirrors</h2>
