@@ -99,7 +99,7 @@ export default {
   data: () => ({
     height: window.innerHeight,
     moment: moment,
-    archs: ["x86_64", "aarch64", "riscv64"],
+    archs: ["x86_64", "aarch64", "riscv64", "loongarch64"],
     filterkey: null,
   }),
 };
