@@ -1,14 +1,29 @@
 <template>
-  <v-text-field
-    class="mt-4"
-    v-model="filterkey"
-    label="Search"
-    prepend-inner-icon="mdi-magnify"
-    variant="outlined"
-    density="compact"
-    hide-details
-    single-line
-  ></v-text-field>
+  <v-row class="mt-4">
+    <v-col cols="12" md="6">
+      <v-select
+        label="Select Architecture"
+        variant="outlined"
+        density="compact"
+        v-model="enabled_archs"
+        :items="archs"
+        hide-details
+        single-line
+        multiple
+      ></v-select>
+    </v-col>
+    <v-col cols="12" md="6">
+      <v-text-field
+        v-model="filterkey"
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        variant="outlined"
+        density="compact"
+        hide-details
+        single-line
+      ></v-text-field>
+    </v-col>
+  </v-row>
   <VDataTableVirtual
     sticky
     :headers="headers"
@@ -78,6 +93,10 @@ export default {
     },
   },
   computed: {
+    height() {
+      if (window.innerHeight > 800) return window.innerHeight - 320;
+      else return window.innerHeight;
+    },
     headers() {
       let ret = [
         {
@@ -86,7 +105,7 @@ export default {
           sortable: true,
         },
       ];
-      this.archs.forEach((arch) => {
+      this.enabled_archs.forEach((arch) => {
         ret.push({
           title: arch + " Status",
           key: "pkgdata-" + arch,
@@ -97,9 +116,9 @@ export default {
     },
   },
   data: () => ({
-    height: window.innerHeight,
     moment: moment,
     archs: ["x86_64", "aarch64", "riscv64", "loongarch64"],
+    enabled_archs: ["x86_64", "aarch64", "riscv64", "loongarch64"],
     filterkey: null,
   }),
 };

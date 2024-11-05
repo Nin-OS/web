@@ -6,7 +6,7 @@
         <v-icon icon="mdi-list-box" start />
         Versions
         <v-chip
-          class="ma-2"
+          class="ma-2 hidden-xs"
           label
           size="small"
           density="comfortable"
@@ -19,7 +19,7 @@
         <v-icon icon="mdi-alert-decagram" start />
         Upgrades
         <v-chip
-          class="ma-2"
+          class="ma-2 hidden-xs"
           label
           size="small"
           density="comfortable"

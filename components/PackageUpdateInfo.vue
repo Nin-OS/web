@@ -1,7 +1,7 @@
 <template>
   <v-row class="mt-2">
     <v-col cols="12" md="6">
-      <v-card-text>
+      <v-card-text class="text-center">
         <v-btn-toggle
           v-model="filterkey"
           group
@@ -9,13 +9,16 @@
           density="compact"
         >
           <v-btn color="warning" value="group:available" size="small">
-            Update Available
+            Update Available <br />
+            ({{ pkglist.filter((e) => e.status === "outofdate").length }})
           </v-btn>
           <v-btn color="error" value="group:failed" size="small">
-            Check Failed
+            Check Failed <br />
+            ({{ pkglist.filter((e) => e.status === "failed").length }})
           </v-btn>
           <v-btn color="primary" value="group:unconfigured" size="small">
-            Unconfigured
+            Unconfigured <br />
+            ({{ pkglist.filter((e) => e.status === "unconfigured").length }})
           </v-btn>
         </v-btn-toggle>
       </v-card-text>
@@ -71,9 +74,7 @@
   <v-snackbar v-model="snackbar">
     Command copied!
     <template v-slot:actions>
-      <v-btn variant="text" @click="snackbar = false">
-        Close
-      </v-btn>
+      <v-btn variant="text" @click="snackbar = false"> Close </v-btn>
     </template>
   </v-snackbar>
 </template>
@@ -89,6 +90,7 @@ export default {
       this.snackbar = true;
     },
     fmtver(pkg, ver = "downstream") {
+      if (pkg.status) if (pkg.reason) return "Failed: " + pkg.reason;
       if (!pkg[ver]) return "Unknown";
       return pkg[ver].join(".");
     },
@@ -115,9 +117,14 @@ export default {
       }
     },
   },
+  computed: {
+    height() {
+      if (window.innerHeight > 800) return window.innerHeight - 320;
+      else return window.innerHeight;
+    },
+  },
   data: () => ({
     moment: moment,
-    height: window.innerHeight,
     snackbar: false,
     resultmap: {
       ok: {
