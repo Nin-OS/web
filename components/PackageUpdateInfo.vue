@@ -69,6 +69,17 @@
       >
         {{ item.status == "outofdate" ? fmtver_cmp(item) : fmtver(item) }}
       </v-chip>
+      <v-chip
+        color="grey"
+        v-if="item.note"
+        class="ml-2"
+        prepend-icon="mdi-note-alert"
+      >
+        note
+        <v-tooltip activator="parent" location="bottom">
+          {{ item.note }}</v-tooltip
+        >
+      </v-chip>
     </template>
   </VDataTableVirtual>
   <v-snackbar v-model="snackbar">
