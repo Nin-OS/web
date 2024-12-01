@@ -10,6 +10,12 @@
     }
   },
   {
+    "id": "eweos-us",
+    "name": "eweOS Official Repo (St. Louis, United States)",
+    "url": "https://os-repo-us.ewe.moe",
+    "tags": ["Official"]
+  },
+  {
     "id": "eweos-cn",
     "name": "eweOS Official Repo (China)",
     "url": "https://os-repo-cn.ewe.moe",
